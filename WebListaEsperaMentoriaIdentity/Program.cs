@@ -17,6 +17,16 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IPacienteService, PacienteService>();
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.Configure<IdentityOptions>(op =>
+    {
+        op.Password.RequiredLength = 6;
+        op.Password.RequireNonAlphanumeric = false;
+        op.Password.RequiredUniqueChars = 1;
+    });
+
+
 
 var app = builder.Build();
 

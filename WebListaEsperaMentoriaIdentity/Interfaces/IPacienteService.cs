@@ -1,4 +1,5 @@
-﻿using WebListaEsperaMentoriaIdentity.Models;
+﻿using Microsoft.AspNetCore.Identity;
+using WebListaEsperaMentoriaIdentity.Models;
 
 namespace WebListaEsperaMentoriaIdentity.Interfaces
 {
@@ -6,7 +7,7 @@ namespace WebListaEsperaMentoriaIdentity.Interfaces
     {
         List<PacienteModel> BuscarPacientes();
         PacienteModel BuscarPorId(int id);
-        PacienteModel CriarPaciente(PacienteModel paciente);
+        Task<PacienteModel> CriarPaciente(PacienteModel paciente);
         PacienteModel EditarPaciente(PacienteModel paciente);
         PacienteModel DeletarPaciente(int id);
     }

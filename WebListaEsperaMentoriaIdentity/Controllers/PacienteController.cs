@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Drawing;
+using System.Security.Claims;
 using WebListaEsperaMentoriaIdentity.Interfaces;
 using WebListaEsperaMentoriaIdentity.Models;
 
@@ -25,7 +28,6 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
         {
             return View();
         }
-
 
         [HttpPost]
         public IActionResult Create(PacienteModel paciente)

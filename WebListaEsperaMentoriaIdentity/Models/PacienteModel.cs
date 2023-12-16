@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel;
 
 namespace WebListaEsperaMentoriaIdentity.Models
 {
@@ -28,6 +29,12 @@ namespace WebListaEsperaMentoriaIdentity.Models
 
         public bool Finalizado { get; set; } = false;
 
+
+        
+        public Guid UsuarioId { get; set; }
+
        
+        public virtual IdentityUser Usuario{ get; set; }
+
     }
 }
