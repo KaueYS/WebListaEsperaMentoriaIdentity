@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebListaEsperaMentoriaIdentity.Data;
 using WebListaEsperaMentoriaIdentity.Interfaces;
+using WebListaEsperaMentoriaIdentity.Repositorios;
 using WebListaEsperaMentoriaIdentity.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,13 +18,22 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IPacienteService, PacienteService>();
+builder.Services.AddScoped<IPacienteRepositorio, PacienteRepositorio>();
+
+
 builder.Services.AddHttpContextAccessor();
+
+
 
 builder.Services.Configure<IdentityOptions>(op =>
     {
-        op.Password.RequiredLength = 6;
+        op.Password.RequiredLength = 4;
         op.Password.RequireNonAlphanumeric = false;
-        op.Password.RequiredUniqueChars = 1;
+        op.Password.RequiredUniqueChars = 0;
+        op.Password.RequireUppercase = false;
+        op.Password.RequireLowercase = false;
+        op.Password.RequireDigit = false;
+      
     });
 
 

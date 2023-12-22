@@ -1,72 +1,59 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿
 using System.Security.Claims;
 using WebListaEsperaMentoriaIdentity.Data;
-using WebListaEsperaMentoriaIdentity.Data.Migrations;
+
 using WebListaEsperaMentoriaIdentity.Interfaces;
 using WebListaEsperaMentoriaIdentity.Models;
+using WebListaEsperaMentoriaIdentity.ViewModels;
 
 namespace WebListaEsperaMentoriaIdentity.Services
 {
     public class PacienteService : IPacienteService
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly AppDbContext _context;
-        private readonly IHttpContextAccessor _contextAccessor;
-        public PacienteService(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, AppDbContext context, IHttpContextAccessor contextAccessor)
+        private readonly IPacienteRepositorio _pacienteRepositorio;
+        public PacienteService(IPacienteRepositorio pacienteRepositorio)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _context = context;
-            _contextAccessor = contextAccessor;
+            _pacienteRepositorio = pacienteRepositorio;
         }
-
-
 
         public List<PacienteModel> BuscarPacientes()
         {
-            Guid usuarioLogado = Guid.Parse(_contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-
-            var pacientes = _context.PACIENTES.Where(x => x.UsuarioId == usuarioLogado).ToList();
-
+            var pacientes = _pacienteRepositorio.BuscarPacientes();
+            if (pacientes == null)
+            {
+                throw new Exception("Paciente nao encontrado");
+            }
             return pacientes;
         }
 
-        public PacienteModel BuscarPorId(int id)
+        public PacienteViewModel BuscarPorId(int id)
         {
-            var paciente = _context.PACIENTES.FirstOrDefault(x => x.Id == id);
+            var paciente = _pacienteRepositorio.BuscarPorId(id);
             if (paciente != null)
             {
-                return paciente;
+                PacienteViewModel pacienteViewModel = paciente;
+                return pacienteViewModel;
             }
             throw new Exception("Paciente nao encontrado");
         }
 
-        public async Task<PacienteModel> CriarPaciente(PacienteModel paciente)
-        {
-            Guid userId = Guid.Parse(_contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            paciente.UsuarioId = userId;
-            
-            _context.PACIENTES.Add(paciente);
-            _context.SaveChanges();
-            return paciente;
-        }
-
-        public PacienteModel DeletarPaciente(int id)
-        {
-            var paciente = BuscarPorId(id);
-            _context.PACIENTES.Remove(paciente);
-            _context.SaveChanges();
-            return paciente;
-        }
-
         public PacienteModel EditarPaciente(PacienteModel paciente)
         {
-            _context.PACIENTES.Update(paciente);
-            _context.SaveChanges();
-            return paciente;
+            var pact = _pacienteRepositorio.EditarPaciente(paciente);
+            return pact;
+        }
+
+        public PacienteModel CriarPaciente(PacienteModel paciente)
+        {
+            var pcte = _pacienteRepositorio.CriarPaciente(paciente);
+            return pcte;
+        }
+
+        public PacienteModel DeletarPacienteService(int id)
+        {
+            var paciente = _pacienteRepositorio.DeletarPacienteRepository(id);
+
+           return paciente;
         }
     }
 }

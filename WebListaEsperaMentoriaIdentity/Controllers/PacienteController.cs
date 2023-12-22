@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Drawing;
-using System.Security.Claims;
 using WebListaEsperaMentoriaIdentity.Interfaces;
 using WebListaEsperaMentoriaIdentity.Models;
+using WebListaEsperaMentoriaIdentity.ViewModels;
 
 namespace WebListaEsperaMentoriaIdentity.Controllers
 {
@@ -12,15 +10,20 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
     public class PacienteController : Controller
     {
         private readonly IPacienteService _services;
+        
 
         public PacienteController(IPacienteService services)
         {
             _services = services;
+            
         }
 
         public IActionResult Index()
         {
             var pacientes = _services.BuscarPacientes();
+            
+
+
             return View(pacientes);
         }
 
@@ -30,9 +33,11 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(PacienteModel paciente)
+        public IActionResult Create(PacienteViewModel paciente)
         {
-            _services.CriarPaciente(paciente);
+            PacienteModel model = paciente;
+
+            _services.CriarPaciente(model);
             return RedirectToAction("Index");
         }
 
@@ -51,7 +56,7 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
 
         public IActionResult Delete(int id)
         {
-            _services.DeletarPaciente(id);
+            _services.DeletarPacienteService(id);
             return RedirectToAction("Index");
         }
 

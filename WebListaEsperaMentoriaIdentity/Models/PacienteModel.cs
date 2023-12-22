@@ -21,7 +21,7 @@ namespace WebListaEsperaMentoriaIdentity.Models
 
 
         [DisplayName("Data do cadastro")]
-        public DateTime DataCadastro { get; set; }
+        public DateTime DataCadastro { get; set; } = DateTime.Now.ToLocalTime();
 
 
         public string? Observacao { get; set; }

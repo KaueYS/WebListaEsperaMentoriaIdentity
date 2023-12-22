@@ -1,4 +1,5 @@
 ﻿@model WebListaEsperaMentoriaIdentity.Models.PacienteModel
+@* @model WebListaEsperaMentoriaIdentity.ViewModels.PacienteViewModel *@
 
 @{
     ViewData["Title"] = "Create";
@@ -42,6 +43,7 @@
                     <input class="form-check-input" asp-for="Finalizado" /> @Html.DisplayNameFor(model => model.Finalizado)
                 </label>
             </div>
+            <br />
             <div class="form-group">
                 <input type="submit" value="Cadastrar" class="btn btn-primary" />
             </div>

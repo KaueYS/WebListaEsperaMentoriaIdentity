@@ -1,0 +1,27 @@
+﻿@page
+@model PersonalDataModel
+@{
+    ViewData["Title"] = "Alterar dados pessoais";
+    ViewData["ActivePage"] = ManageNavPages.PersonalData;
+}
+
+<h3>@ViewData["Title"]</h3>
+
+<div class="row">
+    <div class="col-md-6">
+        <p>A sua conta possui dados pessoais</p>
+        <p>
+            <strong>Aviso: apos deletar sua conta, nao sera possivel recuperar.</strong>
+        </p>
+        @* <form id="download-data" asp-page="DownloadPersonalData" method="post">
+            <button class="btn btn-primary" type="submit">Download</button>
+        </form> *@
+        <p>
+            <a id="delete" asp-page="DeletePersonalData" class="btn btn-danger">Deletar</a>
+        </p>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
