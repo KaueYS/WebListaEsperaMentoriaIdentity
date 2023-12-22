@@ -10,20 +10,15 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
     public class PacienteController : Controller
     {
         private readonly IPacienteService _services;
-        
 
         public PacienteController(IPacienteService services)
         {
             _services = services;
-            
         }
 
         public IActionResult Index()
         {
             var pacientes = _services.BuscarPacientes();
-            
-
-
             return View(pacientes);
         }
 

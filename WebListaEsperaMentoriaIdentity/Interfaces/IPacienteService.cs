@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using WebListaEsperaMentoriaIdentity.Models;
+﻿using WebListaEsperaMentoriaIdentity.Models;
 using WebListaEsperaMentoriaIdentity.ViewModels;
 
 namespace WebListaEsperaMentoriaIdentity.Interfaces

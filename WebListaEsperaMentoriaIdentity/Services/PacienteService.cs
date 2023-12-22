@@ -1,8 +1,4 @@
-﻿
-using System.Security.Claims;
-using WebListaEsperaMentoriaIdentity.Data;
-
-using WebListaEsperaMentoriaIdentity.Interfaces;
+﻿using WebListaEsperaMentoriaIdentity.Interfaces;
 using WebListaEsperaMentoriaIdentity.Models;
 using WebListaEsperaMentoriaIdentity.ViewModels;
 
@@ -52,8 +48,7 @@ namespace WebListaEsperaMentoriaIdentity.Services
         public PacienteModel DeletarPacienteService(int id)
         {
             var paciente = _pacienteRepositorio.DeletarPacienteRepository(id);
-
-           return paciente;
+            return paciente;
         }
     }
 }

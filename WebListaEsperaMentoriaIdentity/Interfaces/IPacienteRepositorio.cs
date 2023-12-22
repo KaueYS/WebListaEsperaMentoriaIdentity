@@ -9,6 +9,5 @@ namespace WebListaEsperaMentoriaIdentity.Interfaces
         PacienteModel EditarPaciente(PacienteModel model);
         PacienteModel CriarPaciente(PacienteModel model);
         PacienteModel DeletarPacienteRepository(int id);
-
     }
 }
