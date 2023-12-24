@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using WebListaEsperaMentoriaIdentity.Enums;
 using WebListaEsperaMentoriaIdentity.Models;
 
 namespace WebListaEsperaMentoriaIdentity.ViewModels
@@ -15,7 +16,7 @@ namespace WebListaEsperaMentoriaIdentity.ViewModels
         public string? Observacao { get; set; }
         public bool Finalizado { get; set; } = false;
 
-
+        public StatusEnum Status { get; set; }
         public Guid UsuarioId { get; set; }
         //public virtual IdentityUser Usuario { get; set; }
 
@@ -29,7 +30,8 @@ namespace WebListaEsperaMentoriaIdentity.ViewModels
                 Telefone = paciente.Telefone,
                 DataCadastro = paciente.DataCadastro,
                 Observacao = paciente.Observacao,
-                Finalizado = paciente.Finalizado
+                Finalizado = paciente.Finalizado,
+                Status = paciente.Status
             };
         }
 
@@ -42,7 +44,8 @@ namespace WebListaEsperaMentoriaIdentity.ViewModels
                 Telefone = paciente.Telefone,
                 DataCadastro = paciente.DataCadastro,
                 Observacao = paciente.Observacao,
-                Finalizado = paciente.Finalizado
+                Finalizado = paciente.Finalizado,
+                Status = paciente.Status
             };
         }
     }

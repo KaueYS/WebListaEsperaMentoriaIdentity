@@ -27,11 +27,11 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
                 }
                 return View(pacientes);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                TempData["MensagemErro"] = "Ops, erro!! tente novamente";
-                return View();
+                TempData["MensagemErro"] = $"Erro!! tente novamente {e.Message}";
             }
+                return View();
         }
 
         public IActionResult Create()
@@ -53,11 +53,11 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                TempData["MensagemErro"] = "Ops, erro!! tente novamente";
-                return View();
+                TempData["MensagemErro"] = $"Erro!! tente novamente {e.Message}";
             }
+                return View();
 
         }
 
@@ -79,18 +79,30 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                TempData["MensagemErro"] = "Ops, erro!! tente novamente";
-                return View();
+                TempData["MensagemErro"] = $"Erro!! tente novamente {e.Message}";
             }
-           
+                return View();
         }
 
         public IActionResult Delete(int id)
         {
-            _pacienteService.DeletarPacienteService(id);
-            return RedirectToAction("Index");
+            try
+            {
+                if(id == 0)
+                {
+                    TempData["ErroDeletar"] = "Nao foi possivel Deletar o paciente";
+                }
+                _pacienteService.DeletarPacienteService(id);
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                TempData["MensagemErro"] = $"Erro!! tente novamente {e.Message}";
+            }
+                return View();
+            
         }
 
         public IActionResult DeleteConfirmed(int id)

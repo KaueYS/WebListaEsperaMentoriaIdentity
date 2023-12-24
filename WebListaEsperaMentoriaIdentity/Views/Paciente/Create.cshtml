@@ -1,4 +1,5 @@
-﻿@model WebListaEsperaMentoriaIdentity.Models.PacienteModel
+﻿@using WebListaEsperaMentoriaIdentity.Enums
+@model WebListaEsperaMentoriaIdentity.Models.PacienteModel
 @* @model WebListaEsperaMentoriaIdentity.ViewModels.PacienteViewModel *@
 
 @{
@@ -44,15 +45,24 @@
                 <input asp-for="DataCadastro" class="form-control" />
                 <span asp-validation-for="DataCadastro" class="text-danger"></span>
             </div>
+           @*  <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Finalizado" /> @Html.DisplayNameFor(model => model.Finalizado)
+                </label>
+            </div> *@
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <select asp-for="Status" class="form-control">
+                    <option value="">Selecione</option>
+                    <option value="@StatusEnum.Ativo">Ativo</option>
+                    <option value="@StatusEnum.Finalizado">Finalizado</option>
+                </select>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="Observacao" class="control-label"></label>
                 <input asp-for="Observacao" class="form-control" />
                 <span asp-validation-for="Observacao" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Finalizado" /> @Html.DisplayNameFor(model => model.Finalizado)
-                </label>
             </div>
             <br />
             <div class="form-group">

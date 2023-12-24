@@ -24,7 +24,7 @@
     }
 }
 <p>
-    <a asp-action="Create">Novo cadastro</a>
+    <a asp-action="Create">Adicionar novo paciente a lista de espera</a>
 </p>
 <table class="table">
     <thead>
@@ -41,12 +41,16 @@
             <th>
                 @Html.DisplayNameFor(model => model.DataCadastro)
             </th>
+            @* <th>
+                @Html.DisplayNameFor(model => model.Finalizado)
+            </th> *@
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Observacao)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Finalizado)
-            </th>
+
             <th></th>
         </tr>
     </thead>
@@ -66,11 +70,14 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.DataCadastro)
                 </td>
+                @* <td>
+                    @Html.DisplayFor(modelItem => item.Finalizado)
+                </td> *@
                 <td>
-                    @Html.DisplayFor(modelItem => item.Observacao)
+                    @Html.DisplayFor(modelItem => item.Status)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Finalizado)
+                    @Html.DisplayFor(modelItem => item.Observacao)
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
