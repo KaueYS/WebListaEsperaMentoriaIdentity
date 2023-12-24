@@ -9,17 +9,29 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
     [Authorize]
     public class PacienteController : Controller
     {
-        private readonly IPacienteService _services;
+        private readonly IPacienteService _pacienteService;
 
-        public PacienteController(IPacienteService services)
+        public PacienteController(IPacienteService pacienteService)
         {
-            _services = services;
+            _pacienteService = pacienteService;
         }
 
         public IActionResult Index()
         {
-            var pacientes = _services.BuscarPacientes();
-            return View(pacientes);
+            try
+            {
+                var pacientes = _pacienteService.BuscarPacientes();
+                if (pacientes == null || pacientes.Count == 0)
+                {
+                    TempData["NaoHaPacientesCadastrados"] = "Nao ha pacientes cadastrados";
+                }
+                return View(pacientes);
+            }
+            catch (Exception)
+            {
+                TempData["MensagemErro"] = "Ops, erro!! tente novamente";
+                return View();
+            }
         }
 
         public IActionResult Create()
@@ -30,34 +42,60 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
         [HttpPost]
         public IActionResult Create(PacienteViewModel paciente)
         {
-            PacienteModel model = paciente;
+            try
+            {
+                PacienteModel model = paciente;
 
-            _services.CriarPaciente(model);
-            return RedirectToAction("Index");
+                _pacienteService.CriarPaciente(model);
+                if (paciente == null)
+                {
+                    TempData["ErroCadastro"] = "Nao foi possivel cadastrar o paciente";
+                }
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+                TempData["MensagemErro"] = "Ops, erro!! tente novamente";
+                return View();
+            }
+
         }
 
         public IActionResult Edit(int id)
         {
-            var pacientes = _services.BuscarPorId(id);
-            return View(pacientes);
+            var paciente = _pacienteService.BuscarPorId(id);
+            return View(paciente);
         }
 
         [HttpPost]
         public IActionResult Edit(PacienteModel paciente)
         {
-            _services.EditarPaciente(paciente);
-            return RedirectToAction("Index");
+            try
+            {
+                _pacienteService.EditarPaciente(paciente);
+                if (paciente == null)
+                {
+                    TempData["ErroEdicao"] = "Nao foi possivel editar o paciente";
+                }
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+                TempData["MensagemErro"] = "Ops, erro!! tente novamente";
+                return View();
+            }
+           
         }
 
         public IActionResult Delete(int id)
         {
-            _services.DeletarPacienteService(id);
+            _pacienteService.DeletarPacienteService(id);
             return RedirectToAction("Index");
         }
 
         public IActionResult DeleteConfirmed(int id)
         {
-            var paciente = _services.BuscarPorId(id);
+            var paciente = _pacienteService.BuscarPorId(id);
             return View(paciente);
         }
     }

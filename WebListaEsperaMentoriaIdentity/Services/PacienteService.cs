@@ -6,19 +6,22 @@ namespace WebListaEsperaMentoriaIdentity.Services
 {
     public class PacienteService : IPacienteService
     {
-        private readonly IPacienteRepositorio _pacienteRepositorio;
-        public PacienteService(IPacienteRepositorio pacienteRepositorio)
+        private readonly IPacienteRepository _pacienteRepositorio;
+        public PacienteService(IPacienteRepository pacienteRepositorio)
         {
             _pacienteRepositorio = pacienteRepositorio;
         }
 
+        // deixar so o verbo em todos os metodos
         public List<PacienteModel> BuscarPacientes()
         {
+
             var pacientes = _pacienteRepositorio.BuscarPacientes();
-            if (pacientes == null)
-            {
-                throw new Exception("Paciente nao encontrado");
-            }
+
+            //if (pacientes == null)
+            //{
+            //    throw new Exception("Paciente nao encontrado");
+            //}
             return pacientes;
         }
 

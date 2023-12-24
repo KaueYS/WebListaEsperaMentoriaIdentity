@@ -2,7 +2,7 @@
 
 namespace WebListaEsperaMentoriaIdentity.Interfaces
 {
-    public interface IPacienteRepositorio
+    public interface IPacienteRepository
     {
         PacienteModel BuscarPorId(int id);
         List<PacienteModel> BuscarPacientes();

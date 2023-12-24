@@ -4,6 +4,22 @@
     ViewData["Title"] = "Edit";
 }
 
+
+@{
+    if (TempData["ErroEdicao"] != null)
+    {
+        <div class="alert alert-primary" role="alert">
+            @TempData["ErroEdicao"]
+        </div>
+    }
+    else if (TempData["MensagemErro"] != null)
+    {
+        <div class="alert alert-primary" role="alert">
+            @TempData["MensagemErro"]
+        </div>
+    }
+}
+
 <h4>Alterar dados do paciente @Model.Nome</h4>
 <hr />
 <div class="row">
@@ -53,5 +69,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

@@ -3,13 +3,13 @@ using WebListaEsperaMentoriaIdentity.Data;
 using WebListaEsperaMentoriaIdentity.Interfaces;
 using WebListaEsperaMentoriaIdentity.Models;
 
-namespace WebListaEsperaMentoriaIdentity.Repositorios
+namespace WebListaEsperaMentoriaIdentity.Repositories
 {
-    public class PacienteRepositorio : IPacienteRepositorio
+    public class PacienteRepository : IPacienteRepository
     {
         private readonly AppDbContext _context;
         private readonly IHttpContextAccessor _contextAccessor;
-        public PacienteRepositorio(AppDbContext context, IHttpContextAccessor contextAccessor = null)
+        public PacienteRepository(AppDbContext context, IHttpContextAccessor contextAccessor = null)
         {
             _context = context;
             _contextAccessor = contextAccessor;
@@ -17,35 +17,23 @@ namespace WebListaEsperaMentoriaIdentity.Repositorios
 
         public List<PacienteModel> BuscarPacientes()
         {
-            Guid usuarioLogado = Guid.Parse(_contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            var pacientes = _context.PACIENTES.Where(x => x.UsuarioId == usuarioLogado).ToList();
+            
+            var pacientes = _context.PACIENTES.Where(x => x.UsuarioId == BuscarUsuarioLogado()).ToList();
 
-            if (pacientes == null)
-            {
-                throw new Exception("Paciente nao encontrado");
-            }
             return pacientes;
         }
 
         public PacienteModel BuscarPorId(int id)
         {
             var paciente = _context.PACIENTES.FirstOrDefault(x => x.Id == id);
-            if (paciente == null)
-            {
-                throw new Exception("Paciente nao encontrado");
-            }
+            
             return paciente;
         }
 
         public PacienteModel CriarPaciente(PacienteModel paciente)
         {
-            Guid usuarioLogado = Guid.Parse(_contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            paciente.UsuarioId = usuarioLogado;
-
-            if (paciente == null)
-            {
-                throw new Exception("Paciente nao encontrado");
-            }
+            
+            paciente.UsuarioId = BuscarUsuarioLogado();
 
             _context.PACIENTES.Add(paciente);
             _context.SaveChanges();
@@ -54,14 +42,9 @@ namespace WebListaEsperaMentoriaIdentity.Repositorios
 
         public PacienteModel EditarPaciente(PacienteModel paciente)
         {
-            Guid usuarioLogado = Guid.Parse(_contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            paciente.UsuarioId = usuarioLogado;
-
-            if (paciente == null)
-            {
-                throw new Exception("Paciente nao encontrado");
-            }
-
+            
+            paciente.UsuarioId = BuscarUsuarioLogado();
+                       
             _context.PACIENTES.Update(paciente);
             _context.SaveChanges();
             return paciente;
@@ -74,6 +57,13 @@ namespace WebListaEsperaMentoriaIdentity.Repositorios
             _context.PACIENTES.Remove(del);
             _context.SaveChanges();
             return del;
+        }
+
+
+        private Guid BuscarUsuarioLogado()
+        {
+            Guid usuarioLogado = Guid.Parse(_contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            return usuarioLogado;
         }
     }
 }
