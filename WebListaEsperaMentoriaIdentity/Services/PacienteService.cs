@@ -25,6 +25,18 @@ namespace WebListaEsperaMentoriaIdentity.Services
             return pacientes;
         }
 
+        public List<PacienteModel> BuscarPacientesFinalizados()
+        {
+
+            var pacientes = _pacienteRepositorio.BuscarPacientesFinalizados();
+
+            //if (pacientes == null)
+            //{
+            //    throw new Exception("Paciente nao encontrado");
+            //}
+            return pacientes;
+        }
+
         public PacienteViewModel BuscarPorId(int id)
         {
             var paciente = _pacienteRepositorio.BuscarPorId(id);

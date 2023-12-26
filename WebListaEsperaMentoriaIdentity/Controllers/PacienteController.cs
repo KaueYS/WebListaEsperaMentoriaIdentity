@@ -16,6 +16,24 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
             _pacienteService = pacienteService;
         }
 
+        public IActionResult PacientesFinalizados()
+        {
+            try
+            {
+                var pacientes = _pacienteService.BuscarPacientesFinalizados();
+                if (pacientes == null || pacientes.Count == 0)
+                {
+                    TempData["NaoHaPacientesCadastrados"] = "Nao ha pacientes cadastrados";
+                }
+                return View(pacientes);
+            }
+            catch (Exception e)
+            {
+                TempData["MensagemErro"] = $"Erro!! tente novamente {e.Message}";
+            }
+            return View();
+        }
+
         public IActionResult Index()
         {
             try
@@ -31,7 +49,7 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
             {
                 TempData["MensagemErro"] = $"Erro!! tente novamente {e.Message}";
             }
-                return View();
+            return View();
         }
 
         public IActionResult Create()
@@ -57,7 +75,7 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
             {
                 TempData["MensagemErro"] = $"Erro!! tente novamente {e.Message}";
             }
-                return View();
+            return View();
 
         }
 
@@ -83,14 +101,14 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
             {
                 TempData["MensagemErro"] = $"Erro!! tente novamente {e.Message}";
             }
-                return View();
+            return View();
         }
 
         public IActionResult Delete(int id)
         {
             try
             {
-                if(id == 0)
+                if (id == 0)
                 {
                     TempData["ErroDeletar"] = "Nao foi possivel Deletar o paciente";
                 }
@@ -101,8 +119,8 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
             {
                 TempData["MensagemErro"] = $"Erro!! tente novamente {e.Message}";
             }
-                return View();
-            
+            return View();
+
         }
 
         public IActionResult DeleteConfirmed(int id)

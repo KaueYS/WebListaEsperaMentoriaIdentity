@@ -6,6 +6,7 @@ namespace WebListaEsperaMentoriaIdentity.Interfaces
     {
         PacienteModel BuscarPorId(int id);
         List<PacienteModel> BuscarPacientes();
+        List<PacienteModel> BuscarPacientesFinalizados();
         PacienteModel EditarPaciente(PacienteModel model);
         PacienteModel CriarPaciente(PacienteModel model);
         PacienteModel DeletarPacienteRepository(int id);
