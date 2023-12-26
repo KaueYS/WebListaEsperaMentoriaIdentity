@@ -20,7 +20,7 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
         {
             try
             {
-                var pacientes = _pacienteService.BuscarPacientesFinalizados();
+                var pacientes = _pacienteService.BuscarFinalizados();
                 if (pacientes == null || pacientes.Count == 0)
                 {
                     TempData["NaoHaPacientesCadastrados"] = "Nao ha pacientes cadastrados";
@@ -38,7 +38,7 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
         {
             try
             {
-                var pacientes = _pacienteService.BuscarPacientes();
+                var pacientes = _pacienteService.Buscar();
                 if (pacientes == null || pacientes.Count == 0)
                 {
                     TempData["NaoHaPacientesCadastrados"] = "Nao ha pacientes cadastrados";
@@ -64,7 +64,7 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
             {
                 PacienteModel model = paciente;
 
-                _pacienteService.CriarPaciente(model);
+                _pacienteService.Criar(model);
                 if (paciente == null)
                 {
                     TempData["ErroCadastro"] = "Nao foi possivel cadastrar o paciente";
@@ -90,7 +90,7 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
         {
             try
             {
-                _pacienteService.EditarPaciente(paciente);
+                _pacienteService.Editar(paciente);
                 if (paciente == null)
                 {
                     TempData["ErroEdicao"] = "Nao foi possivel editar o paciente";
@@ -112,7 +112,7 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
                 {
                     TempData["ErroDeletar"] = "Nao foi possivel Deletar o paciente";
                 }
-                _pacienteService.DeletarPacienteService(id);
+                _pacienteService.Deletar(id);
                 return RedirectToAction("Index");
             }
             catch (Exception e)

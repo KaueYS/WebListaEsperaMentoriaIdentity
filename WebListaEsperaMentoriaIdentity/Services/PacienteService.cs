@@ -13,10 +13,10 @@ namespace WebListaEsperaMentoriaIdentity.Services
         }
 
         // deixar so o verbo em todos os metodos
-        public List<PacienteModel> BuscarPacientes()
+        public List<PacienteModel> Buscar()
         {
 
-            var pacientes = _pacienteRepositorio.BuscarPacientes();
+            var pacientes = _pacienteRepositorio.Buscar();
 
             //if (pacientes == null)
             //{
@@ -25,10 +25,10 @@ namespace WebListaEsperaMentoriaIdentity.Services
             return pacientes;
         }
 
-        public List<PacienteModel> BuscarPacientesFinalizados()
+        public List<PacienteModel> BuscarFinalizados()
         {
 
-            var pacientes = _pacienteRepositorio.BuscarPacientesFinalizados();
+            var pacientes = _pacienteRepositorio.BuscarFinalizados();
 
             //if (pacientes == null)
             //{
@@ -48,21 +48,21 @@ namespace WebListaEsperaMentoriaIdentity.Services
             throw new Exception("Paciente nao encontrado");
         }
 
-        public PacienteModel EditarPaciente(PacienteModel paciente)
+        public PacienteModel Editar(PacienteModel paciente)
         {
-            var pact = _pacienteRepositorio.EditarPaciente(paciente);
+            var pact = _pacienteRepositorio.Editar(paciente);
             return pact;
         }
 
-        public PacienteModel CriarPaciente(PacienteModel paciente)
+        public PacienteModel Criar(PacienteModel paciente)
         {
-            var pcte = _pacienteRepositorio.CriarPaciente(paciente);
+            var pcte = _pacienteRepositorio.Criar(paciente);
             return pcte;
         }
 
-        public PacienteModel DeletarPacienteService(int id)
+        public PacienteModel Deletar(int id)
         {
-            var paciente = _pacienteRepositorio.DeletarPacienteRepository(id);
+            var paciente = _pacienteRepositorio.Deletar(id);
             return paciente;
         }
     }

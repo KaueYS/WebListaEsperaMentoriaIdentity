@@ -10,20 +10,22 @@ namespace WebListaEsperaMentoriaIdentity.Repositories
     {
         private readonly AppDbContext _context;
         private readonly IHttpContextAccessor _contextAccessor;
+
         public PacienteRepository(AppDbContext context, IHttpContextAccessor contextAccessor)
         {
             _context = context;
             _contextAccessor = contextAccessor;
         }
 
-        public List<PacienteModel> BuscarPacientes()
+        public List<PacienteModel> Buscar()
         {
             
             var pacientes = _context.PACIENTES.Where(x => x.UsuarioId == BuscarUsuarioLogado() && x.Status == Enums.StatusEnum.Ativo).AsNoTracking().ToList();
 
             return pacientes;
         }
-        public List<PacienteModel> BuscarPacientesFinalizados()
+
+        public List<PacienteModel> BuscarFinalizados()
         {
 
             var pacientes = _context.PACIENTES.Where(x => x.UsuarioId == BuscarUsuarioLogado() && x.Status == Enums.StatusEnum.Finalizado).AsNoTracking().ToList();
@@ -38,7 +40,7 @@ namespace WebListaEsperaMentoriaIdentity.Repositories
             return paciente;
         }
 
-        public PacienteModel CriarPaciente(PacienteModel paciente)
+        public PacienteModel Criar(PacienteModel paciente)
         {
             
             paciente.UsuarioId = BuscarUsuarioLogado();
@@ -48,7 +50,7 @@ namespace WebListaEsperaMentoriaIdentity.Repositories
             return paciente;
         }
 
-        public PacienteModel EditarPaciente(PacienteModel paciente)
+        public PacienteModel Editar(PacienteModel paciente)
         {
             
             paciente.UsuarioId = BuscarUsuarioLogado();
@@ -58,7 +60,7 @@ namespace WebListaEsperaMentoriaIdentity.Repositories
             return paciente;
         }
 
-        public PacienteModel DeletarPacienteRepository(int id)
+        public PacienteModel Deletar(int id)
         {
             var del = BuscarPorId(id);
             
@@ -66,7 +68,6 @@ namespace WebListaEsperaMentoriaIdentity.Repositories
             _context.SaveChanges();
             return del;
         }
-
 
         private Guid BuscarUsuarioLogado()
         {

@@ -5,10 +5,10 @@ namespace WebListaEsperaMentoriaIdentity.Interfaces
     public interface IPacienteRepository
     {
         PacienteModel BuscarPorId(int id);
-        List<PacienteModel> BuscarPacientes();
-        List<PacienteModel> BuscarPacientesFinalizados();
-        PacienteModel EditarPaciente(PacienteModel model);
-        PacienteModel CriarPaciente(PacienteModel model);
-        PacienteModel DeletarPacienteRepository(int id);
+        List<PacienteModel> Buscar();
+        List<PacienteModel> BuscarFinalizados();
+        PacienteModel Editar(PacienteModel model);
+        PacienteModel Criar(PacienteModel model);
+        PacienteModel Deletar(int id);
     }
 }
