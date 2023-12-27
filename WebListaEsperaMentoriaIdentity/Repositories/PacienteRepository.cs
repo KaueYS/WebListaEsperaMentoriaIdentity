@@ -17,55 +17,45 @@ namespace WebListaEsperaMentoriaIdentity.Repositories
             _contextAccessor = contextAccessor;
         }
 
-        public List<PacienteModel> Buscar()
+        public async Task<List<PacienteModel>> BuscarAsync()
         {
-            
-            var pacientes = _context.PACIENTES.Where(x => x.UsuarioId == BuscarUsuarioLogado() && x.Status == Enums.StatusEnum.Ativo).AsNoTracking().ToList();
-
+            var pacientes = await _context.PACIENTES.Where(x => x.UsuarioId == BuscarUsuarioLogado() && x.Status == Enums.StatusEnum.Ativo).AsNoTracking().ToListAsync();
             return pacientes;
         }
 
-        public List<PacienteModel> BuscarFinalizados()
+        public async Task<List<PacienteModel>> BuscarFinalizadosAsync()
         {
-
-            var pacientes = _context.PACIENTES.Where(x => x.UsuarioId == BuscarUsuarioLogado() && x.Status == Enums.StatusEnum.Finalizado).AsNoTracking().ToList();
-
+            var pacientes = await _context.PACIENTES.Where(x => x.UsuarioId == BuscarUsuarioLogado() && x.Status == Enums.StatusEnum.Finalizado).AsNoTracking().ToListAsync();
             return pacientes;
         }
 
-        public PacienteModel BuscarPorId(int id)
+        public async Task<PacienteModel> BuscarPorId(int id)
         {
-            var paciente = _context.PACIENTES.FirstOrDefault(x => x.Id == id);
-            
+            var paciente = await _context.PACIENTES.FirstOrDefaultAsync(x => x.Id == id);
             return paciente;
         }
 
-        public PacienteModel Criar(PacienteModel paciente)
+        public async Task<PacienteModel> CriarAsync(PacienteModel paciente)
         {
-            
             paciente.UsuarioId = BuscarUsuarioLogado();
-
             _context.PACIENTES.Add(paciente);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return paciente;
         }
 
-        public PacienteModel Editar(PacienteModel paciente)
+        public async Task<PacienteModel> EditarAsync(PacienteModel paciente)
         {
-            
             paciente.UsuarioId = BuscarUsuarioLogado();
-                       
             _context.PACIENTES.Update(paciente);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return paciente;
         }
 
-        public PacienteModel Deletar(int id)
+        public async Task<PacienteModel> DeletarAsync(int id)
         {
-            var del = BuscarPorId(id);
-            
+            var del = await BuscarPorId(id);
             _context.PACIENTES.Remove(del);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return del;
         }
 

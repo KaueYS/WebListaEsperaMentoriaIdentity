@@ -5,11 +5,11 @@ namespace WebListaEsperaMentoriaIdentity.Interfaces
 {
     public interface IPacienteService
     {
-        List<PacienteModel> Buscar();
-        List<PacienteModel> BuscarFinalizados();
-        PacienteViewModel BuscarPorId(int id);
-        PacienteModel Criar(PacienteModel paciente);
-        PacienteModel Editar(PacienteModel paciente);
-        PacienteModel Deletar(int id);
+        Task <List<PacienteModel>> BuscarAsync();
+        Task<List<PacienteModel>> BuscarFinalizadosAsync();
+        Task<PacienteViewModel> BuscarPorId(int id);
+        Task<PacienteModel> CriarAsync(PacienteModel paciente);
+        Task<PacienteModel> EditarAsync(PacienteModel paciente);
+        Task<PacienteModel> DeletarAsync(int id);
     }
 }

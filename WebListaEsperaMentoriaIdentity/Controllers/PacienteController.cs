@@ -16,11 +16,11 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
             _pacienteService = pacienteService;
         }
 
-        public IActionResult PacientesFinalizados()
+        public async Task<IActionResult> PacientesFinalizados()
         {
             try
             {
-                var pacientes = _pacienteService.BuscarFinalizados();
+                var pacientes = await _pacienteService.BuscarFinalizadosAsync();
                 if (pacientes == null || pacientes.Count == 0)
                 {
                     TempData["NaoHaPacientesCadastrados"] = "Nao ha pacientes cadastrados";
@@ -34,11 +34,11 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
             return View();
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             try
             {
-                var pacientes = _pacienteService.Buscar();
+                var pacientes = await _pacienteService.BuscarAsync();
                 if (pacientes == null || pacientes.Count == 0)
                 {
                     TempData["NaoHaPacientesCadastrados"] = "Nao ha pacientes cadastrados";
@@ -58,14 +58,14 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(PacienteViewModel paciente)
+        public async Task<IActionResult> Create(PacienteViewModel paciente)
         {
             try
             {
                 PacienteModel model = paciente;
 
-                _pacienteService.Criar(model);
-                if (paciente == null)
+                await _pacienteService.CriarAsync(model);
+                if (model == null)
                 {
                     TempData["ErroCadastro"] = "Nao foi possivel cadastrar o paciente";
                 }
@@ -76,21 +76,20 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
                 TempData["MensagemErro"] = $"Erro!! tente novamente {e.Message}";
             }
             return View();
-
         }
 
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            var paciente = _pacienteService.BuscarPorId(id);
+            var paciente = await _pacienteService.BuscarPorId(id);
             return View(paciente);
         }
 
         [HttpPost]
-        public IActionResult Edit(PacienteModel paciente)
+        public async Task<IActionResult> Edit(PacienteModel paciente)
         {
             try
             {
-                _pacienteService.Editar(paciente);
+                await _pacienteService.EditarAsync(paciente);
                 if (paciente == null)
                 {
                     TempData["ErroEdicao"] = "Nao foi possivel editar o paciente";
@@ -104,7 +103,7 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
             return View();
         }
 
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             try
             {
@@ -112,7 +111,7 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
                 {
                     TempData["ErroDeletar"] = "Nao foi possivel Deletar o paciente";
                 }
-                _pacienteService.Deletar(id);
+                await _pacienteService.DeletarAsync(id);
                 return RedirectToAction("Index");
             }
             catch (Exception e)
@@ -120,12 +119,11 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
                 TempData["MensagemErro"] = $"Erro!! tente novamente {e.Message}";
             }
             return View();
-
         }
 
-        public IActionResult DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var paciente = _pacienteService.BuscarPorId(id);
+            var paciente = await _pacienteService.BuscarPorId(id);
             return View(paciente);
         }
     }

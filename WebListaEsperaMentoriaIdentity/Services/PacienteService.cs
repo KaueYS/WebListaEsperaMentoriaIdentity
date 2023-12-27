@@ -11,58 +11,43 @@ namespace WebListaEsperaMentoriaIdentity.Services
         {
             _pacienteRepositorio = pacienteRepositorio;
         }
-
-        // deixar so o verbo em todos os metodos
-        public List<PacienteModel> Buscar()
+        
+        public async Task<List<PacienteModel>> BuscarAsync()
         {
+            var pacientes = await _pacienteRepositorio.BuscarAsync();
 
-            var pacientes = _pacienteRepositorio.Buscar();
-
-            //if (pacientes == null)
-            //{
-            //    throw new Exception("Paciente nao encontrado");
-            //}
             return pacientes;
         }
 
-        public List<PacienteModel> BuscarFinalizados()
+        public async Task<List<PacienteModel>> BuscarFinalizadosAsync()
         {
+            var pacientes = await _pacienteRepositorio.BuscarFinalizadosAsync();
 
-            var pacientes = _pacienteRepositorio.BuscarFinalizados();
-
-            //if (pacientes == null)
-            //{
-            //    throw new Exception("Paciente nao encontrado");
-            //}
             return pacientes;
         }
 
-        public PacienteViewModel BuscarPorId(int id)
+        public async Task<PacienteViewModel> BuscarPorId(int id)
         {
-            var paciente = _pacienteRepositorio.BuscarPorId(id);
-            if (paciente != null)
-            {
-                PacienteViewModel pacienteViewModel = paciente;
-                return pacienteViewModel;
-            }
-            throw new Exception("Paciente nao encontrado");
+            var paciente = await _pacienteRepositorio.BuscarPorId(id);
+                        
+            return paciente;
         }
 
-        public PacienteModel Editar(PacienteModel paciente)
+        public async Task<PacienteModel> EditarAsync(PacienteModel paciente)
         {
-            var pact = _pacienteRepositorio.Editar(paciente);
+            var pact = await _pacienteRepositorio.EditarAsync(paciente);
             return pact;
         }
 
-        public PacienteModel Criar(PacienteModel paciente)
+        public async Task<PacienteModel> CriarAsync(PacienteModel paciente)
         {
-            var pcte = _pacienteRepositorio.Criar(paciente);
+            var pcte = await _pacienteRepositorio.CriarAsync(paciente);
             return pcte;
         }
 
-        public PacienteModel Deletar(int id)
+        public async Task<PacienteModel> DeletarAsync(int id)
         {
-            var paciente = _pacienteRepositorio.Deletar(id);
+            var paciente = await _pacienteRepositorio.DeletarAsync(id);
             return paciente;
         }
     }
