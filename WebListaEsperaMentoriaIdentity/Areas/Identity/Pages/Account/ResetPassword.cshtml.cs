@@ -50,6 +50,7 @@ namespace WebListaEsperaMentoriaIdentity.Areas.Identity.Pages.Account
             /// </summary>
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Display(Name = "Digite uma nova senha")]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
@@ -58,8 +59,8 @@ namespace WebListaEsperaMentoriaIdentity.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "Confirme a nova senha")]
+            [Compare("Password", ErrorMessage = "As senhas nao sao iguais")]
             public string ConfirmPassword { get; set; }
 
             /// <summary>
