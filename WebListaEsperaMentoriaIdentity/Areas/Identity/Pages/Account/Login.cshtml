@@ -2,7 +2,7 @@
 @model LoginModel
 
 @{
-    ViewData["Title"] = "Digite Email e Senha para acessar o Gastrocentro";
+    ViewData["Title"] = "Utilize Email e Senha para Login";
 }
 
 <h5>@ViewData["Title"]</h5>
@@ -35,12 +35,12 @@
 
                 <br />
                 <div class="row" >
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <p>Esqueceu sua senha?</p>
-                        <a id="forgot-password" asp-page="./ForgotPassword">redefir senha</a>
+                        <a id="forgot-password" asp-page="./ForgotPassword">Redefir senha</a>
                     </div>
 
-                    <div class ="col-md-6">
+                    <div class ="col-md-4">
                         <p>Nao tem uma conta? </p>
                         <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Registre-se aqui</a>
                     </div>
