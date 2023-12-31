@@ -1,4 +1,6 @@
-﻿using WebListaEsperaMentoriaIdentity.Interfaces;
+﻿using WebListaEsperaMentoriaIdentity.DTO;
+using WebListaEsperaMentoriaIdentity.Enums;
+using WebListaEsperaMentoriaIdentity.Interfaces;
 using WebListaEsperaMentoriaIdentity.Models;
 using WebListaEsperaMentoriaIdentity.ViewModels;
 
@@ -11,24 +13,16 @@ namespace WebListaEsperaMentoriaIdentity.Services
         {
             _pacienteRepositorio = pacienteRepositorio;
         }
-        
-        public async Task<List<PacienteModel>> BuscarAsync()
+       
+        public async Task <List<PacienteModel>> Buscar(PacienteBuscarDTQ pacienteBuscarQuery)
         {
-            var pacientes = await _pacienteRepositorio.BuscarAsync();
-
+            var pacientes = await _pacienteRepositorio.Buscar(pacienteBuscarQuery);
             return pacientes;
         }
 
-        public async Task<List<PacienteModel>> BuscarFinalizadosAsync()
+        public async Task<PacienteViewModel> BuscarPorId(PacienteBuscarDTQ pacienteBuscarQuery)
         {
-            var pacientes = await _pacienteRepositorio.BuscarFinalizadosAsync();
-
-            return pacientes;
-        }
-
-        public async Task<PacienteViewModel> BuscarPorId(int id)
-        {
-            var paciente = await _pacienteRepositorio.BuscarPorId(id);
+            var paciente = await _pacienteRepositorio.BuscarPorId(pacienteBuscarQuery);
                         
             return paciente;
         }

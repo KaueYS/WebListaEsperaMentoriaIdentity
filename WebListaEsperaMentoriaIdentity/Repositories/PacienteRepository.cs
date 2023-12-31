@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using WebListaEsperaMentoriaIdentity.Data;
+using WebListaEsperaMentoriaIdentity.DTO;
 using WebListaEsperaMentoriaIdentity.Interfaces;
 using WebListaEsperaMentoriaIdentity.Models;
 
@@ -17,27 +18,45 @@ namespace WebListaEsperaMentoriaIdentity.Repositories
             _contextAccessor = contextAccessor;
         }
 
-        public async Task<List<PacienteModel>> BuscarAsync()
+        public async Task <List<PacienteModel>> Buscar(PacienteBuscarDTQ pacienteBuscarQuery)
         {
-            var pacientes = await _context.PACIENTES.Where(x => x.UsuarioId == BuscarUsuarioLogado() && x.Status == Enums.StatusEnum.Ativo).AsNoTracking().ToListAsync();
-            return pacientes;
-        }
+            if (pacienteBuscarQuery.Status == Enums.StatusEnum.Nenhum && pacienteBuscarQuery.UsuarioLogado == Guid.Empty)
+            {
+                var pacientes = await _context.PACIENTES.AsNoTracking().ToListAsync();
+                return pacientes;
 
-        public async Task<List<PacienteModel>> BuscarFinalizadosAsync()
-        {
-            var pacientes = await _context.PACIENTES.Where(x => x.UsuarioId == BuscarUsuarioLogado() && x.Status == Enums.StatusEnum.Finalizado).AsNoTracking().ToListAsync();
-            return pacientes;
-        }
+            }
 
-        public async Task<PacienteModel> BuscarPorId(int id)
+            else if (pacienteBuscarQuery.Status != Enums.StatusEnum.Nenhum && pacienteBuscarQuery.UsuarioLogado == Guid.Empty)
+            {
+                var pacientes = await _context.PACIENTES.Where(x => x.Status == pacienteBuscarQuery.Status).AsNoTracking().ToListAsync();
+                return pacientes;
+            }
+
+            else if (pacienteBuscarQuery.Status != Enums.StatusEnum.Nenhum && pacienteBuscarQuery.UsuarioLogado != Guid.Empty)
+            {
+                var pacientes = await _context.PACIENTES.Where(x => x.Status == pacienteBuscarQuery.Status && x.UsuarioId == pacienteBuscarQuery.UsuarioLogado).AsNoTracking().ToListAsync();
+                return pacientes;
+            }
+
+            else 
+            {
+                var pacientes = await _context.PACIENTES.Where(x => x.UsuarioId == pacienteBuscarQuery.UsuarioLogado).AsNoTracking().ToListAsync();
+                return pacientes;
+            }
+        }
+       
+        public async Task<PacienteModel> BuscarPorId(PacienteBuscarDTQ pacienteBuscarQuery)
         {
-            var paciente = await _context.PACIENTES.FirstOrDefaultAsync(x => x.Id == id);
+            var paciente = await _context.PACIENTES.FirstOrDefaultAsync(x => x.Id == pacienteBuscarQuery.PacienteId);
             return paciente;
         }
 
         public async Task<PacienteModel> CriarAsync(PacienteModel paciente)
         {
             paciente.UsuarioId = BuscarUsuarioLogado();
+            paciente.DataCadastro = DateTime.Now;
+            paciente.Status = Enums.StatusEnum.Ativo;
             _context.PACIENTES.Add(paciente);
             await _context.SaveChangesAsync();
             return paciente;
@@ -53,7 +72,11 @@ namespace WebListaEsperaMentoriaIdentity.Repositories
 
         public async Task<PacienteModel> DeletarAsync(int id)
         {
-            var del = await BuscarPorId(id);
+            PacienteBuscarDTQ pacienteBuscarQuery = new PacienteBuscarDTQ();
+
+            pacienteBuscarQuery.PacienteId = id;
+            var del = await BuscarPorId(pacienteBuscarQuery);
+
             _context.PACIENTES.Remove(del);
             await _context.SaveChangesAsync();
             return del;

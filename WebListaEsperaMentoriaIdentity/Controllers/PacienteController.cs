@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using WebListaEsperaMentoriaIdentity.DTO;
 using WebListaEsperaMentoriaIdentity.Interfaces;
 using WebListaEsperaMentoriaIdentity.Models;
 using WebListaEsperaMentoriaIdentity.ViewModels;
@@ -20,7 +22,13 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
         {
             try
             {
-                var pacientes = await _pacienteService.BuscarFinalizadosAsync();
+                PacienteBuscarDTQ pacienteBuscarQuery = new PacienteBuscarDTQ();
+                pacienteBuscarQuery.Status = Enums.StatusEnum.Finalizado;
+                pacienteBuscarQuery.UsuarioLogado = BuscarUsuarioLogado();
+                var pacientes = await _pacienteService.Buscar(pacienteBuscarQuery);
+
+
+                //var pacientes = await _pacienteService.BuscarFinalizadosAsync();
                 if (pacientes == null || pacientes.Count == 0)
                 {
                     TempData["NaoHaPacientesCadastrados"] = "Nao ha pacientes cadastrados";
@@ -38,7 +46,13 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
         {
             try
             {
-                var pacientes = await _pacienteService.BuscarAsync();
+                PacienteBuscarDTQ pacienteBuscarQuery = new PacienteBuscarDTQ();
+                pacienteBuscarQuery.Status = Enums.StatusEnum.Ativo;
+                pacienteBuscarQuery.UsuarioLogado = BuscarUsuarioLogado();
+                var pacientes = await _pacienteService.Buscar(pacienteBuscarQuery);
+
+
+                //var pacientes = await _pacienteService.BuscarAsync();
                 if (pacientes == null || pacientes.Count == 0)
                 {
                     TempData["NaoHaPacientesCadastrados"] = "Nao ha pacientes cadastrados";
@@ -49,6 +63,25 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
             {
                 TempData["MensagemErro"] = $"Erro!! tente novamente {e.Message}";
             }
+            return View();
+        }
+
+        public async Task<IActionResult> Inativos()
+        {
+            PacienteBuscarDTQ pacienteBuscarQuery = new PacienteBuscarDTQ();
+            pacienteBuscarQuery.Status = Enums.StatusEnum.Inativo;
+            pacienteBuscarQuery.UsuarioLogado = BuscarUsuarioLogado();
+            await _pacienteService.Buscar(pacienteBuscarQuery);
+
+            return View();
+        }
+
+        public async Task<IActionResult> Todos()
+        {
+            PacienteBuscarDTQ pacienteBuscarQuery = new PacienteBuscarDTQ();
+
+            await _pacienteService.Buscar(pacienteBuscarQuery);
+
             return View();
         }
 
@@ -65,6 +98,8 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
                 PacienteModel model = paciente;
 
                 await _pacienteService.CriarAsync(model);
+                
+
                 if (model == null)
                 {
                     TempData["ErroCadastro"] = "Nao foi possivel cadastrar o paciente";
@@ -80,7 +115,11 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            var paciente = await _pacienteService.BuscarPorId(id);
+            PacienteBuscarDTQ pacienteBuscarQuery = new PacienteBuscarDTQ();
+            pacienteBuscarQuery.PacienteId = id;
+
+
+            var paciente = await _pacienteService.BuscarPorId(pacienteBuscarQuery);
             return View(paciente);
         }
 
@@ -123,8 +162,16 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
 
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var paciente = await _pacienteService.BuscarPorId(id);
+            PacienteBuscarDTQ pacienteBuscarQuery = new PacienteBuscarDTQ();
+            pacienteBuscarQuery.PacienteId = id;
+            var paciente = await _pacienteService.BuscarPorId(pacienteBuscarQuery);
             return View(paciente);
+        }
+
+        private Guid BuscarUsuarioLogado()
+        {
+            Guid usuarioLogado = Guid.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            return usuarioLogado;
         }
     }
 }
