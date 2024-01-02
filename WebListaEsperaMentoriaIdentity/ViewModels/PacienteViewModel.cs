@@ -14,11 +14,12 @@ namespace WebListaEsperaMentoriaIdentity.ViewModels
         [DisplayName("Data do cadastro")]
         public DateTime DataCadastro { get; set; } 
         public string? Observacao { get; set; }
-        public bool Finalizado { get; set; } = false;
-
+       
         public StatusEnum Status { get; set; }
-        //public Guid UsuarioId { get; set; }
+        public Guid UsuarioId { get; set; }
         //public virtual IdentityUser Usuario { get; set; }
+
+       
 
         public static implicit operator PacienteModel(PacienteViewModel paciente)
         {

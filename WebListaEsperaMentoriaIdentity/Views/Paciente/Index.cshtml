@@ -1,13 +1,10 @@
-﻿@* @model IEnumerable<WebListaEsperaMentoriaIdentity.ViewModels.PacienteViewModel> *@
-@model IEnumerable<WebListaEsperaMentoriaIdentity.Models.PacienteModel>
+﻿@model IEnumerable<PacienteModel>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h4>Lista de espera</h4>
-
-
+<h3>Lista de espera</h3>
 @{
     if (TempData["NaoHaPacientesCadastrados"] != null)
     {
@@ -24,8 +21,9 @@
     }
 }
 <p>
-    <a asp-action="Create">Adicionar novo paciente a lista de espera</a>
+    <a asp-action="Create">Novo paciente</a>
 </p>
+
 <table class="table">
     <thead>
         <tr>
@@ -41,9 +39,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.DataCadastro)
             </th>
-            @* <th>
-                @Html.DisplayNameFor(model => model.Finalizado)
-            </th> *@
+
             <th>
                 @Html.DisplayNameFor(model => model.Status)
             </th>
@@ -70,9 +66,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.DataCadastro)
                 </td>
-                @* <td>
-                    @Html.DisplayFor(modelItem => item.Finalizado)
-                </td> *@
+
                 <td>
                     @Html.DisplayFor(modelItem => item.Status)
                 </td>
@@ -88,3 +82,13 @@
         }
     </tbody>
 </table>
+
+
+
+
+
+
+
+
+
+

@@ -7,3 +7,5 @@
 $(".alert").ready(function () {
     $(".alert").fadeIn(300).delay(4000).fadeOut(400);
 });
+
+

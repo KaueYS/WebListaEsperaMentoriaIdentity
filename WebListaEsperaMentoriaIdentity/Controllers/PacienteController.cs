@@ -17,7 +17,7 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
         {
             _pacienteService = pacienteService;
         }
-
+      
         public async Task<IActionResult> PacientesFinalizados()
         {
             try
@@ -42,7 +42,7 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Index()
+        public async Task <IActionResult> Index()
         {
             try
             {
@@ -91,7 +91,7 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(PacienteViewModel paciente)
+        public async Task <IActionResult> Create(PacienteViewModel paciente)
         {
             try
             {
@@ -110,7 +110,7 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
             {
                 TempData["MensagemErro"] = $"Erro!! tente novamente {e.Message}";
             }
-            return View();
+            return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> Edit(int id)
