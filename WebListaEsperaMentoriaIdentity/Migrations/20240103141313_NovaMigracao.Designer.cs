@@ -9,11 +9,11 @@ using WebListaEsperaMentoriaIdentity.Data;
 
 #nullable disable
 
-namespace WebListaEsperaMentoriaIdentity.Data.Migrations
+namespace WebListaEsperaMentoriaIdentity.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231215221957_IdentityId123")]
-    partial class IdentityId123
+    [Migration("20240103141313_NovaMigracao")]
+    partial class NovaMigracao
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -251,6 +251,9 @@ namespace WebListaEsperaMentoriaIdentity.Data.Migrations
 
                     b.Property<string>("Observacao")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.Property<string>("Telefone")
                         .IsRequired()
