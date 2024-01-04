@@ -51,13 +51,16 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
                 pacienteBuscarQuery.UsuarioLogado = BuscarUsuarioLogado();
                 var pacientes = await _pacienteService.Buscar(pacienteBuscarQuery);
 
-
-                //var pacientes = await _pacienteService.BuscarAsync();
+                
                 if (pacientes == null || pacientes.Count == 0)
                 {
                     TempData["NaoHaPacientesCadastrados"] = "Nao ha pacientes cadastrados";
                 }
-                return View(pacientes);
+
+                PacienteViewModel pacienteViewModel = new PacienteViewModel();
+                pacienteViewModel.Pacientes = pacientes;
+
+                return View(pacienteViewModel);
             }
             catch (Exception e)
             {

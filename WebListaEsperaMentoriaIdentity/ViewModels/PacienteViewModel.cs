@@ -17,9 +17,14 @@ namespace WebListaEsperaMentoriaIdentity.ViewModels
        
         public StatusEnum Status { get; set; }
         public Guid UsuarioId { get; set; }
-        //public virtual IdentityUser Usuario { get; set; }
+        
 
-       
+        //=====================================================================
+        //public PacienteModel? Paciente { get; set; }
+        public List<PacienteModel>? Pacientes { get; set; }
+        //=====================================================================
+
+
 
         public static implicit operator PacienteModel(PacienteViewModel paciente)
         {
@@ -31,7 +36,7 @@ namespace WebListaEsperaMentoriaIdentity.ViewModels
                 Telefone = paciente.Telefone,
                 DataCadastro = paciente.DataCadastro,
                 Observacao = paciente.Observacao,
-                //Finalizado = paciente.Finalizado,
+                
                 Status = paciente.Status
             };
         }
@@ -45,7 +50,7 @@ namespace WebListaEsperaMentoriaIdentity.ViewModels
                 Telefone = paciente.Telefone,
                 DataCadastro = paciente.DataCadastro,
                 Observacao = paciente.Observacao,
-                //Finalizado = paciente.Finalizado,
+                
                 Status = paciente.Status
             };
         }
