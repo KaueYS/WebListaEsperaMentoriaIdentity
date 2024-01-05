@@ -36,11 +36,8 @@ namespace WebListaEsperaMentoriaIdentity.Models
         public StatusEnum Status { get; set; }
 
 
-        public bool Finalizado { get; set; } = false;
-
-        public Guid UsuarioId { get; set; }
-
-        public virtual IdentityUser? Usuario { get; set; } 
+        public ProfissionalModel? Profissional { get; set; }
+        public int? ProfissionalId { get; set; }
 
     }
 }

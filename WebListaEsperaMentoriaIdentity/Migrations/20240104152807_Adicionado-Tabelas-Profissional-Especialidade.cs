@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WebListaEsperaMentoriaIdentity.Migrations
 {
     /// <inheritdoc />
-    public partial class NovaMigracao : Migration
+    public partial class AdicionadoTabelasProfissionalEspecialidade : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -48,6 +48,19 @@ namespace WebListaEsperaMentoriaIdentity.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ESPECIALIDADE",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ESPECIALIDADE", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -157,7 +170,27 @@ namespace WebListaEsperaMentoriaIdentity.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PACIENTES",
+                name: "PROFISSIONAL",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EspecialidadeId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PROFISSIONAL", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PROFISSIONAL_ESPECIALIDADE_EspecialidadeId",
+                        column: x => x.EspecialidadeId,
+                        principalTable: "ESPECIALIDADE",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PACIENTE",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -168,17 +201,15 @@ namespace WebListaEsperaMentoriaIdentity.Migrations
                     DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Observacao = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Status = table.Column<int>(type: "int", nullable: false),
-                    Finalizado = table.Column<bool>(type: "bit", nullable: false),
-                    UsuarioId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UsuarioId1 = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    ProfissionalId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PACIENTES", x => x.Id);
+                    table.PrimaryKey("PK_PACIENTE", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PACIENTES_AspNetUsers_UsuarioId1",
-                        column: x => x.UsuarioId1,
-                        principalTable: "AspNetUsers",
+                        name: "FK_PACIENTE_PROFISSIONAL_ProfissionalId",
+                        column: x => x.ProfissionalId,
+                        principalTable: "PROFISSIONAL",
                         principalColumn: "Id");
                 });
 
@@ -222,9 +253,14 @@ namespace WebListaEsperaMentoriaIdentity.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PACIENTES_UsuarioId1",
-                table: "PACIENTES",
-                column: "UsuarioId1");
+                name: "IX_PACIENTE_ProfissionalId",
+                table: "PACIENTE",
+                column: "ProfissionalId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PROFISSIONAL_EspecialidadeId",
+                table: "PROFISSIONAL",
+                column: "EspecialidadeId");
         }
 
         /// <inheritdoc />
@@ -246,13 +282,19 @@ namespace WebListaEsperaMentoriaIdentity.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "PACIENTES");
+                name: "PACIENTE");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "PROFISSIONAL");
+
+            migrationBuilder.DropTable(
+                name: "ESPECIALIDADE");
         }
     }
 }

@@ -12,8 +12,8 @@ using WebListaEsperaMentoriaIdentity.Data;
 namespace WebListaEsperaMentoriaIdentity.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240103141313_NovaMigracao")]
-    partial class NovaMigracao
+    [Migration("20240104152807_Adicionado-Tabelas-Profissional-Especialidade")]
+    partial class AdicionadoTabelasProfissionalEspecialidade
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -227,6 +227,23 @@ namespace WebListaEsperaMentoriaIdentity.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("WebListaEsperaMentoriaIdentity.Models.EspecialidadeModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ESPECIALIDADE");
+                });
+
             modelBuilder.Entity("WebListaEsperaMentoriaIdentity.Models.PacienteModel", b =>
                 {
                     b.Property<int>("Id")
@@ -242,15 +259,15 @@ namespace WebListaEsperaMentoriaIdentity.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Finalizado")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Observacao")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ProfissionalId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -259,17 +276,33 @@ namespace WebListaEsperaMentoriaIdentity.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("UsuarioId")
-                        .HasColumnType("uniqueidentifier");
+                    b.HasKey("Id");
 
-                    b.Property<string>("UsuarioId1")
-                        .HasColumnType("nvarchar(450)");
+                    b.HasIndex("ProfissionalId");
+
+                    b.ToTable("PACIENTE");
+                });
+
+            modelBuilder.Entity("WebListaEsperaMentoriaIdentity.Models.ProfissionalModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("EspecialidadeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UsuarioId1");
+                    b.HasIndex("EspecialidadeId");
 
-                    b.ToTable("PACIENTES");
+                    b.ToTable("PROFISSIONAL");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -325,11 +358,32 @@ namespace WebListaEsperaMentoriaIdentity.Migrations
 
             modelBuilder.Entity("WebListaEsperaMentoriaIdentity.Models.PacienteModel", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Usuario")
-                        .WithMany()
-                        .HasForeignKey("UsuarioId1");
+                    b.HasOne("WebListaEsperaMentoriaIdentity.Models.ProfissionalModel", "Profissional")
+                        .WithMany("Pacientes")
+                        .HasForeignKey("ProfissionalId");
 
-                    b.Navigation("Usuario");
+                    b.Navigation("Profissional");
+                });
+
+            modelBuilder.Entity("WebListaEsperaMentoriaIdentity.Models.ProfissionalModel", b =>
+                {
+                    b.HasOne("WebListaEsperaMentoriaIdentity.Models.EspecialidadeModel", "Especialidade")
+                        .WithMany("Profissional")
+                        .HasForeignKey("EspecialidadeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Especialidade");
+                });
+
+            modelBuilder.Entity("WebListaEsperaMentoriaIdentity.Models.EspecialidadeModel", b =>
+                {
+                    b.Navigation("Profissional");
+                });
+
+            modelBuilder.Entity("WebListaEsperaMentoriaIdentity.Models.ProfissionalModel", b =>
+                {
+                    b.Navigation("Pacientes");
                 });
 #pragma warning restore 612, 618
         }

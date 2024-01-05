@@ -9,6 +9,8 @@ namespace WebListaEsperaMentoriaIdentity.Data
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options){}
 
-        public DbSet<PacienteModel> PACIENTES { get; set; }  
+        public DbSet<PacienteModel> PACIENTE { get; set; }
+        public DbSet<ProfissionalModel> PROFISSIONAL { get; set; }
+        public DbSet<EspecialidadeModel> ESPECIALIDADE { get; set;}
     }
 }
