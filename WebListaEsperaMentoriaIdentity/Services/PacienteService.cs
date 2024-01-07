@@ -14,6 +14,14 @@ namespace WebListaEsperaMentoriaIdentity.Services
             _pacienteRepositorio = pacienteRepositorio;
         }
        
+        public async Task <List<ProfissionalModel>> BuscarProfissional()
+        {
+
+            var profissional = await _pacienteRepositorio.BuscarProfissional();
+            return profissional;
+
+
+        }
         public async Task <List<PacienteModel>> Buscar(PacienteBuscarDTQ pacienteBuscarQuery)
         {
             var pacientes = await _pacienteRepositorio.Buscar(pacienteBuscarQuery);
@@ -44,6 +52,8 @@ namespace WebListaEsperaMentoriaIdentity.Services
             var paciente = await _pacienteRepositorio.DeletarAsync(id);
             return paciente;
         }
+
+       
     }
 }
 

@@ -17,10 +17,14 @@ namespace WebListaEsperaMentoriaIdentity.Repositories
             _context = context;
             _contextAccessor = contextAccessor;
         }
-
+        public async Task<List<ProfissionalModel>> BuscarProfissional()
+        {
+            var profissional = await _context.PROFISSIONAL.ToListAsync();
+            return profissional;
+        }
         public async Task <List<PacienteModel>> Buscar(PacienteBuscarDTQ pacienteBuscarQuery)
         {
-            var pacientes = await _context.PACIENTE.AsNoTracking().ToListAsync();
+            var pacientes = await _context.PACIENTE.Include(x => x.Profissional).AsNoTracking().ToListAsync();
             return pacientes;
 
 

@@ -31,14 +31,21 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Paciente" asp-action="Index">Lista Espera</a>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Profissional" asp-action="Index">Profissionais</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="Index">Usuarios</a>
+                        </li>
                         @if (SignInManager.IsSignedIn(User))
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Paciente" asp-action="PacientesFinalizados">Pacientes agendados</a>
+                            @* <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Profissional" asp-action="Index">Profissionais</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="Index">Usuarios</a>
-                            </li>
+                            </li> *@
                         }
                     </ul>
                     <partial name="_LoginPartial" />

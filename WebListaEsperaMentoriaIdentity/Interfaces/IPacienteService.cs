@@ -9,8 +9,8 @@ namespace WebListaEsperaMentoriaIdentity.Interfaces
     {
 
         Task <List<PacienteModel>> Buscar(PacienteBuscarDTQ pacienteBuscarQuery);
-        //Task<List<PacienteModel>> BuscarAsync();
-        //Task<List<PacienteModel>> BuscarFinalizadosAsync();
+        Task<List<ProfissionalModel>> BuscarProfissional();
+        
         Task<PacienteViewModel> BuscarPorId(PacienteBuscarDTQ pacienteBuscarQuery);
         Task<PacienteModel> CriarAsync(PacienteModel paciente);
         Task<PacienteModel> EditarAsync(PacienteModel paciente);

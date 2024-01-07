@@ -1,28 +1,16 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel;
 using WebListaEsperaMentoriaIdentity.Enums;
 using WebListaEsperaMentoriaIdentity.Models;
 
 namespace WebListaEsperaMentoriaIdentity.ViewModels
 {
-    public class PacienteViewModel
+    public class PacienteViewModel : PacienteDadosBasicosViewModel
     {
-        public int Id { get; set; }
-        public string Nome { get; set; } = string.Empty;
-        public string Email { get; set; } = string.Empty;
-        public string Telefone { get; set; } = string.Empty;
-
-        [DisplayName("Data do cadastro")]
-        public DateTime DataCadastro { get; set; } 
-        public string? Observacao { get; set; }
-       
-        public StatusEnum Status { get; set; }
-        public Guid UsuarioId { get; set; }
-        
-
-        //=====================================================================
-        //public PacienteModel? Paciente { get; set; }
+        public ProfissionalModel? Profissional {  get; set; }
+        public int? ProfissionalId { get; set; }
         public List<PacienteModel>? Pacientes { get; set; }
-        //=====================================================================
+        
 
 
 
@@ -36,7 +24,8 @@ namespace WebListaEsperaMentoriaIdentity.ViewModels
                 Telefone = paciente.Telefone,
                 DataCadastro = paciente.DataCadastro,
                 Observacao = paciente.Observacao,
-                
+                ProfissionalId = paciente.ProfissionalId,
+                Profissional = paciente.Profissional,
                 Status = paciente.Status
             };
         }
@@ -50,10 +39,12 @@ namespace WebListaEsperaMentoriaIdentity.ViewModels
                 Telefone = paciente.Telefone,
                 DataCadastro = paciente.DataCadastro,
                 Observacao = paciente.Observacao,
-                
+                ProfissionalId = paciente.ProfissionalId,
+                Profissional= paciente.Profissional,
                 Status = paciente.Status
             };
         }
+       
     }
 }
 

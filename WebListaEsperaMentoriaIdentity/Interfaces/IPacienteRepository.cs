@@ -5,6 +5,7 @@ namespace WebListaEsperaMentoriaIdentity.Interfaces
 {
     public interface IPacienteRepository
     {
+        Task <List<ProfissionalModel>> BuscarProfissional();
         Task <List<PacienteModel>> Buscar(PacienteBuscarDTQ pacienteBuscarQuery);
         Task <PacienteModel> BuscarPorId(PacienteBuscarDTQ pacienteBuscarQuery);
         //Task <List<PacienteModel>> BuscarAsync();
