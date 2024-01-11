@@ -1,12 +1,12 @@
 ﻿@model WebListaEsperaMentoriaIdentity.Models.ProfissionalModel
 
-@{
-    ViewData["Title"] = "Create";
+@* @{
+    ViewData["Title"] = "Adicionar novo Profissional";
 }
 
-<h1>Create</h1>
+<h5>@ViewData["Title"]</h5> *@
+<div class="navbar-text text-center"><h3>Adicionar profissional</h3></div>
 
-<h4>ProfissionalModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -21,15 +21,16 @@
                 <label asp-for="EspecialidadeId" class="control-label"></label>
                 <select asp-for="EspecialidadeId" class ="form-control" asp-items="ViewBag.EspecialidadeId"></select>
             </div>
+            <br />
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Salvar" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Voltar</a>
 </div>
 
 @section Scripts {

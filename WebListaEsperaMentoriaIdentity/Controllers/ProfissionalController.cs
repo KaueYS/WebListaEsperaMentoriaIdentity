@@ -78,7 +78,7 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
         // GET: Profissional/Create
         public IActionResult Create()
         {
-            ViewData["EspecialidadeId"] = new SelectList(_context.ESPECIALIDADE, "Id", "Id");
+            ViewData["EspecialidadeId"] = new SelectList(_context.ESPECIALIDADE, "Id", "Nome");
             return View();
         }
 
@@ -112,7 +112,7 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
             {
                 return NotFound();
             }
-            ViewData["EspecialidadeId"] = new SelectList(_context.ESPECIALIDADE, "Id", "Id", profissionalModel.EspecialidadeId);
+            ViewData["EspecialidadeId"] = new SelectList(_context.ESPECIALIDADE, "Id", "Nome", profissionalModel.EspecialidadeId);
             return View(profissionalModel);
         }
 
