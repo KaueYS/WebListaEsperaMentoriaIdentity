@@ -1,8 +1,29 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
-   
+
 }
 
-<div class="text-center">
-    <img src="~/Images/gc1.jpg" />
+
+
+<div class="row">
+    <div class="col-md-12 text-center">
+        <img src="~/Images/gc1.jpg" />
+    </div>
 </div>
+
+
+<hr />
+<div class="row">
+    <div class="col-md-6 text-center" >
+        <p>Faca seu log-in:</p>
+        <a asp-area="Identity" asp-page="/Account/Login">Entrar</a>
+    </div>
+   <br />
+    <div class="col-md-6 text-center">
+        <p>Nao tem cadastro?</p>
+        <a asp-area="Identity" asp-page="/Account/Register">Cadastre-se</a>
+    </div>
+
+
+</div>
+<hr />
