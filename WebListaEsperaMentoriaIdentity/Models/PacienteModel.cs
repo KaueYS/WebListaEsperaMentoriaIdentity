@@ -39,5 +39,7 @@ namespace WebListaEsperaMentoriaIdentity.Models
         public ProfissionalModel? Profissional { get; set; }
         public int? ProfissionalId { get; set; }
 
+       
+
     }
 }

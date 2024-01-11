@@ -25,36 +25,10 @@ namespace WebListaEsperaMentoriaIdentity.Repositories
         public async Task <List<PacienteModel>> Buscar(PacienteBuscarDTQ pacienteBuscarQuery)
         {
             var pacientes = await _context.PACIENTE.Include(x => x.Profissional).AsNoTracking().ToListAsync();
+            
+
+
             return pacientes;
-
-
-            //if (pacienteBuscarQuery.Status == Enums.StatusEnum.Nenhum && pacienteBuscarQuery.UsuarioLogado == Guid.Empty)
-            //{
-            //    var pacientes = await _context.PACIENTE.AsNoTracking().ToListAsync();
-            //    return pacientes;
-
-            //}
-
-            //else if (pacienteBuscarQuery.Status != Enums.StatusEnum.Nenhum && pacienteBuscarQuery.UsuarioLogado == Guid.Empty)
-            //{
-            //    var pacientes = await _context.PACIENTE.Where(x => x.Status == pacienteBuscarQuery.Status).AsNoTracking().ToListAsync();
-            //    return pacientes;
-            //}
-
-
-            //else if (pacienteBuscarQuery.Status != Enums.StatusEnum.Nenhum && pacienteBuscarQuery.UsuarioLogado != Guid.Empty)
-            //{
-            //    var pacientes = await _context.PACIENTE.Where(x => x.Status == pacienteBuscarQuery.Status && x.UsuarioId == pacienteBuscarQuery.UsuarioLogado).AsNoTracking().ToListAsync();
-            //    return pacientes;
-            //}
-
-            //else
-            //{
-            //    var pacientes = await _context.PACIENTE.Where(x => x.UsuarioId == pacienteBuscarQuery.UsuarioLogado).AsNoTracking().ToListAsync();
-            //    return pacientes;
-            //}
-
-
         }
 
         public async Task<PacienteModel> BuscarPorId(PacienteBuscarDTQ pacienteBuscarQuery)
@@ -101,3 +75,28 @@ namespace WebListaEsperaMentoriaIdentity.Repositories
     }
 }
 
+//if (pacienteBuscarQuery.Status == Enums.StatusEnum.Nenhum && pacienteBuscarQuery.UsuarioLogado == Guid.Empty)
+//{
+//    var pacientes = await _context.PACIENTE.AsNoTracking().ToListAsync();
+//    return pacientes;
+
+//}
+
+//else if (pacienteBuscarQuery.Status != Enums.StatusEnum.Nenhum && pacienteBuscarQuery.UsuarioLogado == Guid.Empty)
+//{
+//    var pacientes = await _context.PACIENTE.Where(x => x.Status == pacienteBuscarQuery.Status).AsNoTracking().ToListAsync();
+//    return pacientes;
+//}
+
+
+//else if (pacienteBuscarQuery.Status != Enums.StatusEnum.Nenhum && pacienteBuscarQuery.UsuarioLogado != Guid.Empty)
+//{
+//    var pacientes = await _context.PACIENTE.Where(x => x.Status == pacienteBuscarQuery.Status && x.UsuarioId == pacienteBuscarQuery.UsuarioLogado).AsNoTracking().ToListAsync();
+//    return pacientes;
+//}
+
+//else
+//{
+//    var pacientes = await _context.PACIENTE.Where(x => x.UsuarioId == pacienteBuscarQuery.UsuarioLogado).AsNoTracking().ToListAsync();
+//    return pacientes;
+//}

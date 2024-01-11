@@ -11,7 +11,7 @@ using WebListaEsperaMentoriaIdentity.ViewModels;
 
 namespace WebListaEsperaMentoriaIdentity.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class PacienteController : Controller
     {
         private readonly IPacienteService _pacienteService;
@@ -46,15 +46,16 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
             return View();
         }
 
-        public async Task <IActionResult> Index(int? id)
+        public async Task<IActionResult> Index()
         {
+
             try
             {
                 PacienteBuscarDTQ pacienteBuscarQuery = new PacienteBuscarDTQ();
                 pacienteBuscarQuery.Status = Enums.StatusEnum.Ativo;
                 //pacienteBuscarQuery.UsuarioLogado = BuscarUsuarioLogado();
                 var pacientes = await _pacienteService.Buscar(pacienteBuscarQuery);
-                
+
                 if (pacientes == null || pacientes.Count == 0)
                 {
                     TempData["NaoHaPacientesCadastrados"] = "Nao ha pacientes cadastrados";
@@ -72,16 +73,7 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Inativos()
-        {
-            PacienteBuscarDTQ pacienteBuscarQuery = new PacienteBuscarDTQ();
-            pacienteBuscarQuery.Status = Enums.StatusEnum.Inativo;
-            //pacienteBuscarQuery.UsuarioLogado = BuscarUsuarioLogado();
-            await _pacienteService.Buscar(pacienteBuscarQuery);
-
-            return View();
-        }
-
+        
         public async Task<IActionResult> Todos()
         {
             PacienteBuscarDTQ pacienteBuscarQuery = new PacienteBuscarDTQ();
@@ -110,26 +102,35 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+
+
         public async Task<IActionResult> Edit(int id)
         {
+
             PacienteBuscarDTQ pacienteBuscarQuery = new PacienteBuscarDTQ();
             pacienteBuscarQuery.PacienteId = id;
+
+
             var paciente = await _pacienteService.BuscarPorId(pacienteBuscarQuery);
 
+
+            ViewData["ProfissionalId"] = new SelectList(_context.PROFISSIONAL, "Id", "Nome", paciente.ProfissionalId);
             return View(paciente);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(PacienteModel paciente)
+        public async Task<IActionResult> Edit(PacienteViewModel paciente)
         {
             try
             {
+
                 await _pacienteService.EditarAsync(paciente);
                 if (paciente == null)
                 {
                     TempData["ErroEdicao"] = "Nao foi possivel editar o paciente";
                 }
-                
+
+                ViewData["ProfissionalId"] = new SelectList(_context.PROFISSIONAL, "Id", "Id", paciente.ProfissionalId);
                 return RedirectToAction("Index");
             }
             catch (Exception e)

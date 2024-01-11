@@ -11,14 +11,14 @@ namespace WebListaEsperaMentoriaIdentity.ViewModels
         public int? ProfissionalId { get; set; }
         public List<PacienteModel>? Pacientes { get; set; }
         
-
+        
 
 
         public static implicit operator PacienteModel(PacienteViewModel paciente)
         {
             return new PacienteModel
             {
-
+                Id = paciente.Id,
                 Nome = paciente.Nome,
                 Email = paciente.Email,
                 Telefone = paciente.Telefone,
@@ -27,6 +27,7 @@ namespace WebListaEsperaMentoriaIdentity.ViewModels
                 ProfissionalId = paciente.ProfissionalId,
                 Profissional = paciente.Profissional,
                 Status = paciente.Status
+                
             };
         }
 
@@ -34,6 +35,7 @@ namespace WebListaEsperaMentoriaIdentity.ViewModels
         {
             return new PacienteViewModel
             {
+                Id = paciente.Id,
                 Nome = paciente.Nome,
                 Email = paciente.Email,
                 Telefone = paciente.Telefone,
@@ -41,7 +43,8 @@ namespace WebListaEsperaMentoriaIdentity.ViewModels
                 Observacao = paciente.Observacao,
                 ProfissionalId = paciente.ProfissionalId,
                 Profissional= paciente.Profissional,
-                Status = paciente.Status
+                Status = paciente.Status,
+                
             };
         }
        

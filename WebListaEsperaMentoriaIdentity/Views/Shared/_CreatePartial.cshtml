@@ -20,46 +20,59 @@
     }
 }
 
+<div class="container">
 
-<h4>Cadastrar pacientes</h4>
-<hr />
-<div class="row">
-    <div class="col-md-12">
-        <form asp-controller="Paciente" asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Nome" class="control-label"></label>
-                <input asp-for="Nome" class="form-control" />
-                <span asp-validation-for="Nome" class="text-danger"></span>
+    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCreate" aria-controls="offcanvasExample">
+        Cadastrar novo paciente
+    </button>
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasCreate" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasExampleLabel"></h5>
+
+        </div>
+        <div class="offcanvas-body">
+            <div>
+                <h4>Cadastrar pacientes</h4>
+                <hr />
+                <div class="row">
+                    <div class="col-md-12">
+                        <form asp-controller="Paciente" asp-action="Create">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group">
+                                <label asp-for="Nome" class="control-label"></label>
+                                <input asp-for="Nome" class="form-control" />
+                                <span asp-validation-for="Nome" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Email" class="control-label"></label>
+                                <input asp-for="Email" class="form-control" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Telefone" class="control-label"></label>
+                                <input asp-for="Telefone" class="form-control" />
+                                <span asp-validation-for="Telefone" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Observacao" class="control-label"></label>
+                                <input asp-for="Observacao" class="form-control" />
+                                <span asp-validation-for="Observacao" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ProfissionalId" class="control-label"></label>
+                                <select asp-for="ProfissionalId" class="form-control" asp-items="ViewBag.ProfissionalId"></select>
+                            </div>
+                            <br />
+                            <div class="form-group">
+                                <input type="submit" value="Cadastrar" class="btn btn-primary" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Telefone" class="control-label"></label>
-                <input asp-for="Telefone" class="form-control" />
-                <span asp-validation-for="Telefone" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Observacao" class="control-label"></label>
-                <input asp-for="Observacao" class="form-control" />
-                <span asp-validation-for="Observacao" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProfissionalId" class="control-label"></label>
-                <select asp-for="ProfissionalId" class="form-control" asp-items="ViewBag.ProfissionalId"></select>
-            </div>
-            <br />
-            <div class="form-group">
-                <input type="submit" value="Cadastrar" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
-<br />
-
 
 @section Scripts {
     @{

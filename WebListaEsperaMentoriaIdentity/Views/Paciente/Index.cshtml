@@ -5,7 +5,8 @@
     ViewData["Title"] = "Index";
 }
 
-<h3>Lista de espera</h3>
+<div class="navbar-text text-center"><h3>Lista de espera</h3></div>
+
 @{
     if (TempData["NaoHaPacientesCadastrados"] != null)
     {
@@ -22,24 +23,8 @@
     }
 }
 
+<partial name="_CreatePartial" />
 
-<div class="container">
-   
-    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
-        Cadastrar novo paciente
-    </button>
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasExampleLabel"></h5>
-            
-        </div>
-        <div class="offcanvas-body">
-            <div>
-                <Partial name="_CreatePartial" />
-            </div>
-        </div>
-    </div>
-</div>
 
 
 <table class="table">
@@ -96,14 +81,27 @@
                     @Html.DisplayFor(modelItem => item.Profissional.Nome)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-
+                  
+                   
+                    @* <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-url="@Url.Action($"Edit/{item.Id}")">
+                       Editar
+                    </button> *@
+                   @*  @await Html.PartialAsync("_EditPartial") *@
+                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a>  |
                     <a asp-action="DeleteConfirmed" asp-route-id="@item.Id">Deletar</a>
                 </td>
             </tr>
         }
+        
+        @* <partial name="_EditPartial" /> *@
     </tbody>
 </table>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
 
 
 
