@@ -47,7 +47,7 @@ namespace WebListaEsperaMentoriaIdentity.Services
             return pcte;
         }
 
-        public async Task<PacienteModel> DeletarAsync(int id)
+        public async Task<PacienteModel> DeletarAsync(Guid id)
         {
             var paciente = await _pacienteRepositorio.DeletarAsync(id);
             return paciente;

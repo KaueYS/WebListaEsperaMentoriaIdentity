@@ -9,7 +9,7 @@ namespace WebListaEsperaMentoriaIdentity.Models
     public class PacienteModel
     {
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required(ErrorMessage = "O campo nome precisa ser preenchido")]
         public string Nome { get; set; } = string.Empty;
@@ -37,7 +37,7 @@ namespace WebListaEsperaMentoriaIdentity.Models
 
 
         public ProfissionalModel? Profissional { get; set; }
-        public int? ProfissionalId { get; set; }
+        public Guid? ProfissionalId { get; set; }
 
        
 

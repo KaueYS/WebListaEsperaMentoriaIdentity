@@ -1,4 +1,4 @@
-﻿@model WebListaEsperaMentoriaIdentity.Models.ProfissionalModel
+﻿@model WebListaEsperaMentoriaIdentity.Models.EspecialidadeModel
 
 @{
     ViewData["Title"] = "Create";
@@ -6,7 +6,7 @@
 
 <h1>Create</h1>
 
-<h4>ProfissionalModel</h4>
+<h4>EspecialidadeModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -16,15 +16,6 @@
                 <label asp-for="Nome" class="control-label"></label>
                 <input asp-for="Nome" class="form-control" />
                 <span asp-validation-for="Nome" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EspecialidadeId" class="control-label"></label>
-                <select asp-for="EspecialidadeId" class ="form-control" asp-items="ViewBag.EspecialidadeId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="UsuarioId" class="control-label"></label>
-                <input asp-for="UsuarioId" class="form-control" />
-                <span asp-validation-for="UsuarioId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

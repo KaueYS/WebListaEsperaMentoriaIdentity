@@ -14,6 +14,10 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using System.Security.Claims;
+using WebListaEsperaMentoriaIdentity.Data;
+using WebListaEsperaMentoriaIdentity.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace WebListaEsperaMentoriaIdentity.Areas.Identity.Pages.Account
 {
@@ -21,11 +25,13 @@ namespace WebListaEsperaMentoriaIdentity.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly AppDbContext _appDbContext;
 
-        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger, AppDbContext appDbContext)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _appDbContext = appDbContext;
         }
 
         /// <summary>
@@ -107,34 +113,84 @@ namespace WebListaEsperaMentoriaIdentity.Areas.Identity.Pages.Account
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
-            if (ModelState.IsValid)
+            var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+            if (result.Succeeded)
             {
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
-                if (result.Succeeded)
-                {
-                    _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
-                }
-                if (result.RequiresTwoFactor)
-                {
-                    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
-                }
-                if (result.IsLockedOut)
-                {
-                    _logger.LogWarning("User account locked out.");
-                    return RedirectToPage("./Lockout");
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return Page();
-                }
+                _logger.LogInformation("User logged in.");
+                return LocalRedirect(returnUrl);
             }
-
-            // If we got this far, something failed, redisplay form
-            return Page();
+            if (result.RequiresTwoFactor)
+            {
+                return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
+            }
+            if (result.IsLockedOut)
+            {
+                _logger.LogWarning("User account locked out.");
+                return RedirectToPage("./Lockout");
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                return Page();
+            }
+            
         }
     }
 }
+
+// This doesn't count login failures towards account lockout
+// To enable password failures to trigger account lockout, set lockoutOnFailure: true
+//var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+//if (result.Succeeded)
+//{
+//    _logger.LogInformation("User logged in.");
+//    Guid usuarioLogado = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+//    //consulta na tabela profissionais utilizando como filtro o GUID usuario logado
+
+
+//    ProfissionalModel profissional = _appDbContext.PROFISSIONAL.Where(x => x.UsuarioId == usuarioLogado).FirstOrDefault();
+//    if (profissional != null)
+//    {
+//        User.Identities.FirstOrDefault().AddClaim(new Claim("ProfissionalId", profissional.Id.ToString()));
+//    }
+
+
+
+//    return LocalRedirect(returnUrl);
+//}
+//if (result.RequiresTwoFactor)
+//{
+//    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
+//}
+//if (result.IsLockedOut)
+//{
+//    _logger.LogWarning("User account locked out.");
+//    return RedirectToPage("./Lockout");
+
+
+
+//if (ModelState.IsValid)
+//{
+//    var user = await _signInManager.UserManager.FindByNameAsync(Input.Email);
+//    var isValid = await _signInManager.UserManager.CheckPasswordAsync(user, Input.Password);
+
+//    if (isValid)
+//    {
+//        ProfissionalModel profissional = new ProfissionalModel();
+//        var custonClaims = new[] { new Claim("ProfissionalId", profissional.Id.ToString()) };
+//        await _signInManager.SignInWithClaimsAsync(user, false, custonClaims);
+//        _logger.LogInformation("User logged in.");
+//        return LocalRedirect(returnUrl);
+//    }
+
+
+
+//Guid usuarioLogado = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+////consulta na tabela profissionais utilizando como filtro o GUID usuario logado
+
+
+//ProfissionalModel profissional = _appDbContext.PROFISSIONAL.Where(x => x.UsuarioId == usuarioLogado).FirstOrDefault();
+//if (profissional != null)
+//{
+//    User.Identities.FirstOrDefault().AddClaim(new Claim("ProfissionalId", profissional.Id.ToString()));
+//}

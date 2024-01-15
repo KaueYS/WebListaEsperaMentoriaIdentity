@@ -226,11 +226,9 @@ namespace WebListaEsperaMentoriaIdentity.Migrations
 
             modelBuilder.Entity("WebListaEsperaMentoriaIdentity.Models.EspecialidadeModel", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Nome")
                         .IsRequired()
@@ -243,11 +241,9 @@ namespace WebListaEsperaMentoriaIdentity.Migrations
 
             modelBuilder.Entity("WebListaEsperaMentoriaIdentity.Models.PacienteModel", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("DataCadastro")
                         .HasColumnType("datetime2");
@@ -263,8 +259,8 @@ namespace WebListaEsperaMentoriaIdentity.Migrations
                     b.Property<string>("Observacao")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ProfissionalId")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("ProfissionalId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -272,9 +268,6 @@ namespace WebListaEsperaMentoriaIdentity.Migrations
                     b.Property<string>("Telefone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("UsuarioId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -285,18 +278,19 @@ namespace WebListaEsperaMentoriaIdentity.Migrations
 
             modelBuilder.Entity("WebListaEsperaMentoriaIdentity.Models.ProfissionalModel", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("uniqueidentifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("EspecialidadeId")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("EspecialidadeId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("UsuarioId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 

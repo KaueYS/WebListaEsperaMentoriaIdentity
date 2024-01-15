@@ -1,7 +1,6 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
-using System.Configuration;
 using WebListaEsperaMentoriaIdentity.Data;
 using WebListaEsperaMentoriaIdentity.Interfaces;
 using WebListaEsperaMentoriaIdentity.Repositories;
@@ -33,8 +32,15 @@ builder.Services.Configure<IdentityOptions>(op =>
         op.Password.RequireUppercase = false;
         op.Password.RequireLowercase = false;
         op.Password.RequireDigit = false;
-      
+
     });
+
+//builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(option =>
+//{
+//    option.Cookie.Name = "Gastrocentro.Cookies";
+//    option.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+//    option.SlidingExpiration = true;
+//});
 
 
 var app = builder.Build();

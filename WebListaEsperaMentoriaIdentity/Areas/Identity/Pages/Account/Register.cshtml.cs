@@ -180,8 +180,8 @@ namespace WebListaEsperaMentoriaIdentity.Areas.Identity.Pages.Account
             // smtpClient.Credentials = new NetworkCredential(?Username,?Password);
             try
             {
-                MailMessage message = new MailMessage();
-                SmtpClient smtpClient = new SmtpClient();
+                MailMessage message = new();
+                SmtpClient smtpClient = new();
                 message.From = new MailAddress("webmaster@webk.cloud");
                 message.To.Add(email);
                 message.Subject = subject;

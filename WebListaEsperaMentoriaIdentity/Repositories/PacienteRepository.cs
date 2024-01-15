@@ -17,17 +17,24 @@ namespace WebListaEsperaMentoriaIdentity.Repositories
             _context = context;
             _contextAccessor = contextAccessor;
         }
+
+
+
+
         public async Task<List<ProfissionalModel>> BuscarProfissional()
         {
             var profissional = await _context.PROFISSIONAL.ToListAsync();
             return profissional;
         }
+
         public async Task <List<PacienteModel>> Buscar(PacienteBuscarDTQ pacienteBuscarQuery)
         {
+            PacienteBuscarDTQ pacienteBuscarDTQ = new PacienteBuscarDTQ();
+            pacienteBuscarDTQ.Status = Enums.StatusEnum.Ativo;
+
+
+
             var pacientes = await _context.PACIENTE.Include(x => x.Profissional).AsNoTracking().ToListAsync();
-            
-
-
             return pacientes;
         }
 
@@ -55,7 +62,7 @@ namespace WebListaEsperaMentoriaIdentity.Repositories
             return paciente;
         }
 
-        public async Task<PacienteModel> DeletarAsync(int id)
+        public async Task<PacienteModel> DeletarAsync(Guid id)
         {
             PacienteBuscarDTQ pacienteBuscarQuery = new PacienteBuscarDTQ();
 
@@ -71,6 +78,12 @@ namespace WebListaEsperaMentoriaIdentity.Repositories
         {
             Guid usuarioLogado = Guid.Parse(_contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
             return usuarioLogado;
+        }
+
+        private Guid BuscarProfissionalLogado()
+        {
+            Guid profissionalLogado = Guid.Parse(_contextAccessor.HttpContext.User.FindFirst("ProfissionaId").Value);
+            return profissionalLogado;
         }
     }
 }

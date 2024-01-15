@@ -8,7 +8,7 @@ namespace WebListaEsperaMentoriaIdentity.ViewModels
     public class PacienteViewModel : PacienteDadosBasicosViewModel
     {
         public ProfissionalModel? Profissional {  get; set; }
-        public int? ProfissionalId { get; set; }
+        public Guid? ProfissionalId { get; set; }
         public List<PacienteModel>? Pacientes { get; set; }
         
         

@@ -51,9 +51,10 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
 
             try
             {
+                //pegar o id do profissional que esta na claim e criar novo filtro no DTQ
+
                 PacienteBuscarDTQ pacienteBuscarQuery = new PacienteBuscarDTQ();
-                pacienteBuscarQuery.Status = Enums.StatusEnum.Ativo;
-                //pacienteBuscarQuery.UsuarioLogado = BuscarUsuarioLogado();
+
                 var pacientes = await _pacienteService.Buscar(pacienteBuscarQuery);
 
                 if (pacientes == null || pacientes.Count == 0)
@@ -104,7 +105,7 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
 
 
 
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(Guid id)
         {
 
             PacienteBuscarDTQ pacienteBuscarQuery = new PacienteBuscarDTQ();
@@ -140,11 +141,11 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(Guid id)
         {
             try
             {
-                if (id == 0)
+                if (id == Guid.Empty)
                 {
                     TempData["ErroDeletar"] = "Nao foi possivel Deletar o paciente";
                 }
@@ -158,7 +159,7 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
             return View();
         }
 
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             PacienteBuscarDTQ pacienteBuscarQuery = new PacienteBuscarDTQ();
             pacienteBuscarQuery.PacienteId = id;
@@ -170,6 +171,12 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
         {
             Guid usuarioLogado = Guid.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
             return usuarioLogado;
+        }
+
+        private Guid BuscarProfissionalLogado()
+        {
+            Guid profissionalLogado = Guid.Parse(HttpContext.User.FindFirst("ProfissionaId").Value);
+            return profissionalLogado;
         }
     }
 }

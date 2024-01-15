@@ -10,23 +10,22 @@ using WebListaEsperaMentoriaIdentity.Models;
 
 namespace WebListaEsperaMentoriaIdentity.Controllers
 {
-    public class ProfissionalController : Controller
+    public class EspecialidadeController : Controller
     {
         private readonly AppDbContext _context;
 
-        public ProfissionalController(AppDbContext context)
+        public EspecialidadeController(AppDbContext context)
         {
             _context = context;
         }
 
-        // GET: Profissional
+        // GET: Especialidade
         public async Task<IActionResult> Index()
         {
-            var appDbContext = _context.PROFISSIONAL.Include(p => p.Especialidade);
-            return View(await appDbContext.ToListAsync());
+            return View(await _context.ESPECIALIDADE.ToListAsync());
         }
 
-        // GET: Profissional/Details/5
+        // GET: Especialidade/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -34,43 +33,40 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
                 return NotFound();
             }
 
-            var profissionalModel = await _context.PROFISSIONAL
-                .Include(p => p.Especialidade)
+            var especialidadeModel = await _context.ESPECIALIDADE
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (profissionalModel == null)
+            if (especialidadeModel == null)
             {
                 return NotFound();
             }
 
-            return View(profissionalModel);
+            return View(especialidadeModel);
         }
 
-        // GET: Profissional/Create
+        // GET: Especialidade/Create
         public IActionResult Create()
         {
-            ViewData["EspecialidadeId"] = new SelectList(_context.ESPECIALIDADE, "Id", "Nome");
             return View();
         }
 
-        // POST: Profissional/Create
+        // POST: Especialidade/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(ProfissionalModel profissionalModel)
+        public async Task<IActionResult> Create([Bind("Id,Nome")] EspecialidadeModel especialidadeModel)
         {
             if (ModelState.IsValid)
             {
-                profissionalModel.Id = Guid.NewGuid();
-                _context.Add(profissionalModel);
+                especialidadeModel.Id = Guid.NewGuid();
+                _context.Add(especialidadeModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EspecialidadeId"] = new SelectList(_context.ESPECIALIDADE, "Id", "Id", profissionalModel.EspecialidadeId);
-            return View(profissionalModel);
+            return View(especialidadeModel);
         }
 
-        // GET: Profissional/Edit/5
+        // GET: Especialidade/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -78,23 +74,22 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
                 return NotFound();
             }
 
-            var profissionalModel = await _context.PROFISSIONAL.FindAsync(id);
-            if (profissionalModel == null)
+            var especialidadeModel = await _context.ESPECIALIDADE.FindAsync(id);
+            if (especialidadeModel == null)
             {
                 return NotFound();
             }
-            ViewData["EspecialidadeId"] = new SelectList(_context.ESPECIALIDADE, "Id", "Nome", profissionalModel.EspecialidadeId);
-            return View(profissionalModel);
+            return View(especialidadeModel);
         }
 
-        // POST: Profissional/Edit/5
+        // POST: Especialidade/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, ProfissionalModel profissionalModel)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Nome")] EspecialidadeModel especialidadeModel)
         {
-            if (id != profissionalModel.Id)
+            if (id != especialidadeModel.Id)
             {
                 return NotFound();
             }
@@ -103,12 +98,12 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
             {
                 try
                 {
-                    _context.Update(profissionalModel);
+                    _context.Update(especialidadeModel);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProfissionalModelExists(profissionalModel.Id))
+                    if (!EspecialidadeModelExists(especialidadeModel.Id))
                     {
                         return NotFound();
                     }
@@ -119,11 +114,10 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EspecialidadeId"] = new SelectList(_context.ESPECIALIDADE, "Id", "Id", profissionalModel.EspecialidadeId);
-            return View(profissionalModel);
+            return View(especialidadeModel);
         }
 
-        // GET: Profissional/Delete/5
+        // GET: Especialidade/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -131,35 +125,34 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
                 return NotFound();
             }
 
-            var profissionalModel = await _context.PROFISSIONAL
-                .Include(p => p.Especialidade)
+            var especialidadeModel = await _context.ESPECIALIDADE
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (profissionalModel == null)
+            if (especialidadeModel == null)
             {
                 return NotFound();
             }
 
-            return View(profissionalModel);
+            return View(especialidadeModel);
         }
 
-        // POST: Profissional/Delete/5
+        // POST: Especialidade/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var profissionalModel = await _context.PROFISSIONAL.FindAsync(id);
-            if (profissionalModel != null)
+            var especialidadeModel = await _context.ESPECIALIDADE.FindAsync(id);
+            if (especialidadeModel != null)
             {
-                _context.PROFISSIONAL.Remove(profissionalModel);
+                _context.ESPECIALIDADE.Remove(especialidadeModel);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProfissionalModelExists(Guid id)
+        private bool EspecialidadeModelExists(Guid id)
         {
-            return _context.PROFISSIONAL.Any(e => e.Id == id);
+            return _context.ESPECIALIDADE.Any(e => e.Id == id);
         }
     }
 }
