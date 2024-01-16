@@ -1,12 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System.ComponentModel;
-using WebListaEsperaMentoriaIdentity.DTO;
-using WebListaEsperaMentoriaIdentity.Enums;
+﻿using WebListaEsperaMentoriaIdentity.DTO;
 using WebListaEsperaMentoriaIdentity.Models;
 
 namespace WebListaEsperaMentoriaIdentity.ViewModels
 {
-    public class PacienteViewModel : PacienteDadosBasicosViewModel
+    public class ListaEsperaViewModel : PacienteDadosBasicosViewModel
     {
         public ProfissionalModel? Profissional {  get; set; }
         public Guid? ProfissionalId { get; set; }
@@ -17,7 +14,7 @@ namespace WebListaEsperaMentoriaIdentity.ViewModels
 
 
 
-        public static implicit operator PacienteModel(PacienteViewModel paciente)
+        public static implicit operator PacienteModel(ListaEsperaViewModel paciente)
         {
             return new PacienteModel
             {
@@ -34,9 +31,9 @@ namespace WebListaEsperaMentoriaIdentity.ViewModels
             };
         }
 
-        public static implicit operator PacienteViewModel(PacienteModel paciente)
+        public static implicit operator ListaEsperaViewModel(PacienteModel paciente)
         {
-            return new PacienteViewModel
+            return new ListaEsperaViewModel
             {
                 Id = paciente.Id,
                 Nome = paciente.Nome,

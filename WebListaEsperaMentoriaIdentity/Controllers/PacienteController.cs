@@ -1,8 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using SQLitePCL;
 using System.Security.Claims;
 using WebListaEsperaMentoriaIdentity.Data;
 using WebListaEsperaMentoriaIdentity.DTO;
@@ -12,17 +9,51 @@ using WebListaEsperaMentoriaIdentity.ViewModels;
 
 namespace WebListaEsperaMentoriaIdentity.Controllers
 {
-    
     public class PacienteController : Controller
     {
         private readonly IPacienteService _pacienteService;
         private readonly AppDbContext _context;
-
-
         public PacienteController(IPacienteService pacienteService, AppDbContext context)
         {
             _pacienteService = pacienteService;
             _context = context;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            try
+            {
+                List<ProfissionalPacienteListaEsperaDTO> result = (from pr in _context.PROFISSIONAL
+                             join pa in _context.PACIENTE on pr.Id equals pa.ProfissionalId into patientGroup
+                             from patient in patientGroup.DefaultIfEmpty()
+                             group patient by pr.Nome into grouped
+                             select new ProfissionalPacienteListaEsperaDTO
+                             {
+                                 NomeProfissional = grouped.Key,
+                                 QtdePacienteListaEspera = grouped.Count(pa => pa != null)
+                             }).OrderByDescending(x => x.NomeProfissional).ToList();
+
+                ListaEsperaViewModel pacienteViewModel = new ListaEsperaViewModel();
+                pacienteViewModel.ProfissionaisPacienteListaEspera = result;
+
+
+                PacienteBuscarDTQ pacienteBuscarQuery = new PacienteBuscarDTQ();
+                List<PacienteModel> pacientes = await _pacienteService.Buscar(pacienteBuscarQuery);
+
+                if (pacientes == null || pacientes.Count == 0)
+                {
+                    TempData["NaoHaPacientesCadastrados"] = "Nao ha pacientes cadastrados";
+                }
+                pacienteViewModel.Pacientes = pacientes;
+
+                ViewData["ProfissionalId"] = new SelectList(_context.PROFISSIONAL, "Id", "Nome");
+                return View(pacienteViewModel);
+            }
+            catch (Exception e)
+            {
+                TempData["MensagemErro"] = $"Erro!! tente novamente {e.Message}";
+            }
+            return View();
         }
 
         public async Task<IActionResult> PacientesFinalizados()
@@ -46,50 +77,6 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
             }
             return View();
         }
-
-        public async Task<IActionResult> Index()
-        {
-
-            try
-            {
-                
-                List<ProfissionalPacienteListaEsperaDTO> result = (from pr in _context.PROFISSIONAL
-                             join pa in _context.PACIENTE on pr.Id equals pa.ProfissionalId into patientGroup
-                             from patient in patientGroup.DefaultIfEmpty()
-                             group patient by pr.Nome into grouped
-                             select new ProfissionalPacienteListaEsperaDTO
-                             {
-                                 NomeProfissional = grouped.Key,
-                                 QtdePacienteListaEspera = grouped.Count(pa => pa != null)
-                             }).ToList();
-
-
-
-                PacienteBuscarDTQ pacienteBuscarQuery = new PacienteBuscarDTQ();
-
-                var pacientes = await _pacienteService.Buscar(pacienteBuscarQuery);
-
-                if (pacientes == null || pacientes.Count == 0)
-                {
-                    TempData["NaoHaPacientesCadastrados"] = "Nao ha pacientes cadastrados";
-                }
-
-                PacienteViewModel pacienteViewModel = new PacienteViewModel();
-                pacienteViewModel.Pacientes = pacientes;
-                pacienteViewModel.ProfissionaisPacienteListaEspera = result;
-
-
-
-                ViewData["ProfissionalId"] = new SelectList(_context.PROFISSIONAL, "Id", "Nome");
-                return View(pacienteViewModel);
-            }
-            catch (Exception e)
-            {
-                TempData["MensagemErro"] = $"Erro!! tente novamente {e.Message}";
-            }
-            return View();
-        }
-
         
         public async Task<IActionResult> Todos()
         {
@@ -107,7 +94,7 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(PacienteViewModel paciente)
+        public async Task<IActionResult> Create(ListaEsperaViewModel paciente)
         {
             PacienteModel model = paciente;
 
@@ -119,28 +106,23 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
-
         public async Task<IActionResult> Edit(Guid id)
         {
 
             PacienteBuscarDTQ pacienteBuscarQuery = new PacienteBuscarDTQ();
             pacienteBuscarQuery.PacienteId = id;
 
-
             var paciente = await _pacienteService.BuscarPorId(pacienteBuscarQuery);
-
 
             ViewData["ProfissionalId"] = new SelectList(_context.PROFISSIONAL, "Id", "Nome", paciente.ProfissionalId);
             return View(paciente);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(PacienteViewModel paciente)
+        public async Task<IActionResult> Edit(ListaEsperaViewModel paciente)
         {
             try
             {
-
                 await _pacienteService.EditarAsync(paciente);
                 if (paciente == null)
                 {
