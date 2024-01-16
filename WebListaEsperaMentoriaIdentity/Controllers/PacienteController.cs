@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using SQLitePCL;
 using System.Security.Claims;
 using WebListaEsperaMentoriaIdentity.Data;
@@ -11,7 +12,7 @@ using WebListaEsperaMentoriaIdentity.ViewModels;
 
 namespace WebListaEsperaMentoriaIdentity.Controllers
 {
-    [Authorize]
+    
     public class PacienteController : Controller
     {
         private readonly IPacienteService _pacienteService;
@@ -51,7 +52,18 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
 
             try
             {
-                //pegar o id do profissional que esta na claim e criar novo filtro no DTQ
+                
+                List<ProfissionalPacienteListaEsperaDTO> result = (from pr in _context.PROFISSIONAL
+                             join pa in _context.PACIENTE on pr.Id equals pa.ProfissionalId into patientGroup
+                             from patient in patientGroup.DefaultIfEmpty()
+                             group patient by pr.Nome into grouped
+                             select new ProfissionalPacienteListaEsperaDTO
+                             {
+                                 NomeProfissional = grouped.Key,
+                                 QtdePacienteListaEspera = grouped.Count(pa => pa != null)
+                             }).ToList();
+
+
 
                 PacienteBuscarDTQ pacienteBuscarQuery = new PacienteBuscarDTQ();
 
@@ -64,6 +76,10 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
 
                 PacienteViewModel pacienteViewModel = new PacienteViewModel();
                 pacienteViewModel.Pacientes = pacientes;
+                pacienteViewModel.ProfissionaisPacienteListaEspera = result;
+
+
+
                 ViewData["ProfissionalId"] = new SelectList(_context.PROFISSIONAL, "Id", "Nome");
                 return View(pacienteViewModel);
             }
