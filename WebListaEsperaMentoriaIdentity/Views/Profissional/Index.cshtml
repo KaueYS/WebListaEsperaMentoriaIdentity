@@ -1,20 +1,15 @@
 ﻿@model IEnumerable<WebListaEsperaMentoriaIdentity.Models.ProfissionalModel>
 
-@{
-    ViewData["Title"] = "Index";
-}
 
-<h1>Index</h1>
+
+<h4>Profissionais cadastrados</h4>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Cadastrar Novo Profissional</a>
 </p>
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Nome)
             </th>
@@ -22,12 +17,8 @@
             <th>
                 @Html.DisplayNameFor(model => model.Especialidade)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EspecialidadeId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UsuarioId)
-            </th>
+            
+            
             <th></th>
         </tr>
     </thead>
@@ -35,9 +26,7 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
+                
                 <td>
                     @Html.DisplayFor(modelItem => item.Nome)
                 </td>
@@ -45,17 +34,12 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Especialidade.Nome)
                 </td>
+               
                 <td>
-                    @Html.DisplayFor(modelItem => item.Especialidade.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UsuarioId)
-                </td>
-                <td>
-                    <a asp-action="MostrarListaPacientesProfissional" asp-route-id="@item.Id">Pacientes do Profissional</a> |
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-action="ListaPacientesProfissional" asp-route-id="@item.Id">Pacientes do Profissional</a> |
+                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Deletar</a>
                 </td>
             </tr>
         }

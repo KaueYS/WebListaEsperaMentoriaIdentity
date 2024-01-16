@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 
 namespace WebListaEsperaMentoriaIdentity.Controllers
 {
+    [Authorize]
     public class UsuarioController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;

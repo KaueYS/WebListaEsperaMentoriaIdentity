@@ -15,7 +15,7 @@ namespace WebListaEsperaMentoriaIdentity.ViewModels
         public string? Observacao { get; set; }
 
         public StatusEnum Status { get; set; }
-        public Guid UsuarioId { get; set; }
+       
 
     }
 }

@@ -1,56 +1,39 @@
-﻿@model IEnumerable<WebListaEsperaMentoriaIdentity.Models.PacienteModel>
-
+﻿@using WebListaEsperaMentoriaIdentity.ViewModels
+@model ListaPacientesCadaProfissionalViewModel
 @{
     ViewData["Title"] = "Index";
 }
 
-<h4>Pacientes Agendados</h4>
-
-
-@{
-    if (TempData["NaoHaPacientesCadastrados"] != null)
-    {
-        <div class="alert alert-primary" role="alert">
-            @TempData["NaoHaPacientesCadastrados"]
-        </div>
-    }
-
-    else if (TempData["MensagemErro"] != null)
-    {
-        <div class="alert alert-primary" role="alert">
-            @TempData["MensagemErro"]
-        </div>
-    }
-}
+<h4>Pacientes Cadastrados do "nomedoprofissional"</h4>
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Nome)
+                @Html.DisplayNameFor(model => model.Paciente.Nome)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                @Html.DisplayNameFor(model => model.Paciente.Email)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Telefone)
+                @Html.DisplayNameFor(model => model.Paciente.Telefone)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DataCadastro)
+                @Html.DisplayNameFor(model => model.Paciente.DataCadastro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Paciente.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Paciente.Observacao)
             </th>
            
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Observacao)
-            </th>
 
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.ListaPacientesCadaProfissional)
         {
             <tr>
                 <td>
@@ -65,22 +48,20 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.DataCadastro)
                 </td>
-               
                 <td>
                     @Html.DisplayFor(modelItem => item.Status)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Observacao)
                 </td>
+                
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-
+                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a>  |
                     <a asp-action="DeleteConfirmed" asp-route-id="@item.Id">Deletar</a>
                 </td>
             </tr>
         }
+
+      
     </tbody>
 </table>
-    <div>
-        <a asp-action="Index">Voltar</a>
-    </div>

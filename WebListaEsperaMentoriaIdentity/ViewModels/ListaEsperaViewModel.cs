@@ -8,10 +8,11 @@ namespace WebListaEsperaMentoriaIdentity.ViewModels
         public ProfissionalModel? Profissional {  get; set; }
         public Guid? ProfissionalId { get; set; }
         public List<PacienteModel>? Pacientes { get; set; }
-
+        
+        public Guid PacienteId { get; set; }
         public List<ProfissionalPacienteListaEsperaDTO>? ProfissionaisPacienteListaEspera { get; set; }
 
-
+       
 
 
         public static implicit operator PacienteModel(ListaEsperaViewModel paciente)

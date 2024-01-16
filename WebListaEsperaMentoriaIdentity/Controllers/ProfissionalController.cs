@@ -1,12 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using SendGrid.Helpers.Mail;
 using WebListaEsperaMentoriaIdentity.Data;
 using WebListaEsperaMentoriaIdentity.Models;
+using WebListaEsperaMentoriaIdentity.ViewModels;
 
 
 namespace WebListaEsperaMentoriaIdentity.Controllers
 {
+    [Authorize]
     public class ProfissionalController : Controller
     {
         private readonly AppDbContext _context;
@@ -16,7 +20,14 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
             _context = context;
         }
 
-        
+        public IActionResult ListaPacientesProfissional(Guid id)
+        {
+            var pacientesFiltradosPeloProfissional = _context.PACIENTE.Include(p => p.Profissional).Where(x => x.ProfissionalId == id);
+            ListaPacientesCadaProfissionalViewModel listaPacientesCadaProfissionalViewModel = new();
+
+            listaPacientesCadaProfissionalViewModel.ListaPacientesCadaProfissional = pacientesFiltradosPeloProfissional.ToList();
+            return View(listaPacientesCadaProfissionalViewModel);
+        }
 
 
 
@@ -24,7 +35,7 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
         public async Task<IActionResult> Index()
         {
             var appDbContext = _context.PROFISSIONAL.Include(p => p.Especialidade);
-            return View(await appDbContext.ToListAsync());
+            return View(await appDbContext.OrderBy(x => x.Nome).ToListAsync());
         }
 
         // GET: Profissional/Details/5
