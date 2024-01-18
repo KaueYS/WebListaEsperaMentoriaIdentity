@@ -2,10 +2,12 @@
 @model ListaEsperaViewModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "PACIENTES NA LISTA DE ESPERA";
 }
 
-<div class="navbar-text text-center"><h3>Lista de espera</h3></div>
+
+<h5>@ViewData["Title"]</h5>
+<hr />
 
 @{
     if (TempData["NaoHaPacientesCadastrados"] != null)
@@ -81,19 +83,13 @@
                     @Html.DisplayFor(modelItem => item.Profissional.Nome)
                 </td>
                 <td>
-                  
-                   @* 
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-url="@Url.Action($"Edit/{item.Id}")">
-                       Editar
-                    </button> *@
-                   @*  @await Html.PartialAsync("_EditPartial") *@
                     <a asp-action="Edit" asp-route-id="@item.Id">Editar</a>  |
                     <a asp-action="DeleteConfirmed" asp-route-id="@item.Id">Deletar</a>
                 </td>
             </tr>
         }
         
-        @* <partial name="_EditPartial" /> *@
+       
     </tbody>
 </table>
 @section Scripts {

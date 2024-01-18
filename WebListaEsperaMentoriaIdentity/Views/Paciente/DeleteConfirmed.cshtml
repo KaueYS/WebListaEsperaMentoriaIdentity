@@ -1,8 +1,10 @@
 ﻿@model WebListaEsperaMentoriaIdentity.ViewModels.ListaEsperaViewModel
 
 @{
-    ViewData["Title"] = "DeleteConfirmed";
+    ViewData["Title"] = $"TEM CERTEZA QUE DESEJA DELETAR O PACIENTE {@Model.Nome}?";
 }
+<h5>@ViewData["Title"]</h5>
+<hr />
 
 @{
     if (TempData["ErroDeletar"] != null)
@@ -19,10 +21,8 @@
     }
 }
 
-<h4>Tem certeza que deseja deletar @Model.Nome ?</h4>
+
 <div>
-    
-    <hr />
     <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Nome)
@@ -54,12 +54,7 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Observacao)
         </dd>
-        @* <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Finalizado)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Finalizado)
-        </dd> *@
+       
     </dl>
     
     <form asp-action="Delete">

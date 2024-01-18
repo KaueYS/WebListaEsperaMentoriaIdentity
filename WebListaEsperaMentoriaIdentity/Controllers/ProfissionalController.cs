@@ -145,6 +145,7 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
 
             var profissionalModel = await _context.PROFISSIONAL
                 .Include(p => p.Especialidade)
+                
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (profissionalModel == null)
             {

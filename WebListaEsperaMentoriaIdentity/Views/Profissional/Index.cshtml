@@ -1,8 +1,11 @@
 ﻿@model IEnumerable<WebListaEsperaMentoriaIdentity.Models.ProfissionalModel>
 
+@{
+    ViewData["Title"] = $"PROFISSIONAIS CADASTRADOS";
+}
 
-
-<h4>Profissionais cadastrados</h4>
+<h5>@ViewData["Title"]</h5>
+<hr />
 
 <p>
     <a asp-action="Create">Cadastrar Novo Profissional</a>

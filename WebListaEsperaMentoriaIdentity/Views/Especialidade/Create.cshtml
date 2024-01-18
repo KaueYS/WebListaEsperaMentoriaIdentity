@@ -1,10 +1,10 @@
 ﻿@model WebListaEsperaMentoriaIdentity.Models.EspecialidadeModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "CADASTRAR NOVA ESPECIALIDADE";
 }
 
-<h1>Cadastrar nova especialidade</h1>
+<h5>@ViewData["Title"]</h5>
 
 
 <hr />
@@ -17,6 +17,7 @@
                 <input asp-for="Nome" class="form-control" />
                 <span asp-validation-for="Nome" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
                 <input type="submit" value="Cadastrar" class="btn btn-primary" />
             </div>

@@ -11,10 +11,7 @@ namespace WebListaEsperaMentoriaIdentity.Models
         public EspecialidadeModel? Especialidade { get; set; }
         public Guid? EspecialidadeId { get; set; }
 
-
-        public Guid? UsuarioId { get; set; }
-
-
+       
         public List<PacienteModel>? Pacientes { get; set;}
 
        

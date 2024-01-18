@@ -133,7 +133,7 @@ namespace WebListaEsperaMentoriaIdentity.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    await SendEmailAsync(Input.Email, "Confirmacao de email",
+                    await SendEmailAsync(Input.Email, "Confirmação de email",
                         $"Confirme sua conta neste link <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>Clique aqui para confirmar</a>.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)

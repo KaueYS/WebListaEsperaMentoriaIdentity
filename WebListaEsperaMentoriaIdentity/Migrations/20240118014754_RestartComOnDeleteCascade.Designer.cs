@@ -12,8 +12,8 @@ using WebListaEsperaMentoriaIdentity.Data;
 namespace WebListaEsperaMentoriaIdentity.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240113222533_AlteradoParaGuid")]
-    partial class AlteradoParaGuid
+    [Migration("20240118014754_RestartComOnDeleteCascade")]
+    partial class RestartComOnDeleteCascade
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -291,9 +291,6 @@ namespace WebListaEsperaMentoriaIdentity.Migrations
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("UsuarioId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 

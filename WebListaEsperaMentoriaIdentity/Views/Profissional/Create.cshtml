@@ -1,13 +1,14 @@
 ﻿@model WebListaEsperaMentoriaIdentity.Models.ProfissionalModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = $"CADASTRADAR PROFISSIONAL";
 }
 
-<h4>Cadastrar Profissional</h4>
-
-
+<h5>@ViewData["Title"]</h5>
 <hr />
+
+
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
@@ -18,10 +19,10 @@
                 <span asp-validation-for="Nome" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="EspecialidadeId" class="control-label"></label>
-                <select asp-for="EspecialidadeId" class ="form-control" asp-items="ViewBag.EspecialidadeId"></select>
+                <label asp-for="Especialidade" class="control-label"></label>
+                <select asp-for="EspecialidadeId" class="form-control" asp-items="ViewBag.EspecialidadeId"></select>
             </div>
-           
+            <br />
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -34,5 +35,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
