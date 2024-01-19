@@ -9,9 +9,12 @@ using WebListaEsperaMentoriaIdentity.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(connectionString));
+//var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+//builder.Services.AddDbContext<AppDbContext>(options =>
+//    options.UseSqlServer(connectionString));
+
+builder.Services.AddDbContext<AppDbContext>(options => options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"), ServerVersion.Parse("8.2.0-mysql")));
+
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -34,13 +37,6 @@ builder.Services.Configure<IdentityOptions>(op =>
         op.Password.RequireDigit = false;
 
     });
-
-//builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(option =>
-//{
-//    option.Cookie.Name = "Gastrocentro.Cookies";
-//    option.ExpireTimeSpan = TimeSpan.FromMinutes(5);
-//    option.SlidingExpiration = true;
-//});
 
 
 var app = builder.Build();
