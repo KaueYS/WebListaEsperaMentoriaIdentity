@@ -182,19 +182,19 @@ namespace WebListaEsperaMentoriaIdentity.Areas.Identity.Pages.Account
             {
                 MailMessage message = new();
                 SmtpClient smtpClient = new();
-                message.From = new MailAddress("webmaster@webk.cloud");
+                message.From = new MailAddress("webmaster@gastro.app.br");
                 message.To.Add(email);
                 message.Subject = subject;
                 message.IsBodyHtml = true;
                 message.Body = confirmLink;
 
                 smtpClient.Port = 587;
-                smtpClient.Host = "smtp.hostinger.com";
+                smtpClient.Host = "smtp-vip.kinghost.net.";
 
 
                 smtpClient.EnableSsl = true;
                 smtpClient.UseDefaultCredentials = false;
-                smtpClient.Credentials = new NetworkCredential("webmaster@webk.cloud", "5288@Emem");
+                smtpClient.Credentials = new NetworkCredential("webmaster@gastro.app.br", "5288@Emem");
                 smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
                 smtpClient.Send(message);
                 return true;

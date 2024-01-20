@@ -11,8 +11,8 @@ using WebListaEsperaMentoriaIdentity.Data;
 namespace WebListaEsperaMentoriaIdentity.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240120013607_KINGHost")]
-    partial class KINGHost
+    [Migration("20240120212535_KingHostGastroAPPBR")]
+    partial class KingHostGastroAPPBR
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
