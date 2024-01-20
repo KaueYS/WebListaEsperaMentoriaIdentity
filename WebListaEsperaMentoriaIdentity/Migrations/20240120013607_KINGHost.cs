@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WebListaEsperaMentoriaIdentity.Migrations
 {
     /// <inheritdoc />
-    public partial class InicialMySQLHostinger : Migration
+    public partial class KINGHost : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -228,7 +228,7 @@ namespace WebListaEsperaMentoriaIdentity.Migrations
                         principalTable: "ESPECIALIDADE",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-        })
+                })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(

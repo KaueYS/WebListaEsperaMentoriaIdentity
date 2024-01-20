@@ -11,8 +11,8 @@ using WebListaEsperaMentoriaIdentity.Data;
 namespace WebListaEsperaMentoriaIdentity.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240119000919_InicialMySQLHostinger")]
-    partial class InicialMySQLHostinger
+    [Migration("20240120013607_KINGHost")]
+    partial class KINGHost
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
