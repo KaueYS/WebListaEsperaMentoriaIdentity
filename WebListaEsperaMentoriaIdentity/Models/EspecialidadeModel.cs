@@ -1,4 +1,7 @@
-﻿namespace WebListaEsperaMentoriaIdentity.Models
+﻿using System;
+using System.Collections.Generic;
+
+namespace WebListaEsperaMentoriaIdentity.Models
 {
     public class EspecialidadeModel
     {

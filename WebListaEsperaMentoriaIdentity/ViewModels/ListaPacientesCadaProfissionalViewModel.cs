@@ -1,4 +1,6 @@
-﻿using WebListaEsperaMentoriaIdentity.Models;
+﻿using System;
+using System.Collections.Generic;
+using WebListaEsperaMentoriaIdentity.Models;
 
 namespace WebListaEsperaMentoriaIdentity.ViewModels
 {

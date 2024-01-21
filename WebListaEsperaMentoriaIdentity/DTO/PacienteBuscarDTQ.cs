@@ -1,4 +1,5 @@
-﻿using WebListaEsperaMentoriaIdentity.Enums;
+﻿using System;
+using WebListaEsperaMentoriaIdentity.Enums;
 using WebListaEsperaMentoriaIdentity.Models;
 
 namespace WebListaEsperaMentoriaIdentity.DTO

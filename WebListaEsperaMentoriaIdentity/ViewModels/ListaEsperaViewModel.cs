@@ -1,4 +1,6 @@
-﻿using WebListaEsperaMentoriaIdentity.DTO;
+﻿using System;
+using System.Collections.Generic;
+using WebListaEsperaMentoriaIdentity.DTO;
 using WebListaEsperaMentoriaIdentity.Models;
 
 namespace WebListaEsperaMentoriaIdentity.ViewModels

@@ -1,4 +1,7 @@
-﻿using WebListaEsperaMentoriaIdentity.DTO;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using WebListaEsperaMentoriaIdentity.DTO;
 using WebListaEsperaMentoriaIdentity.Models;
 
 namespace WebListaEsperaMentoriaIdentity.Interfaces
