@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WebListaEsperaMentoriaIdentity.Migrations
 {
     /// <inheritdoc />
-    public partial class KingHostGastroAPPBR : Migration
+    public partial class BDKH : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
