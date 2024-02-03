@@ -67,9 +67,9 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
         public async Task<IActionResult> Todos()
         {
             PacienteBuscarDTQ pacienteBuscarQuery = new PacienteBuscarDTQ();
-            await _pacienteService.Buscar(pacienteBuscarQuery);
+            var buscarTodos =  await _pacienteService.Buscar(pacienteBuscarQuery);
 
-            return View();
+            return View(buscarTodos);
         }
 
         public async Task<IActionResult> Create()

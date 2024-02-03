@@ -22,9 +22,6 @@ namespace WebListaEsperaMentoriaIdentity.Repositories
             _contextAccessor = contextAccessor;
         }
 
-
-
-
         public async Task<List<ProfissionalModel>> BuscarProfissional()
         {
             var profissional = await _context.PROFISSIONAL.ToListAsync();
@@ -35,8 +32,6 @@ namespace WebListaEsperaMentoriaIdentity.Repositories
         {
             PacienteBuscarDTQ pacienteBuscarDTQ = new PacienteBuscarDTQ();
             pacienteBuscarDTQ.Status = Enums.StatusEnum.Ativo;
-
-
 
             var pacientes = await _context.PACIENTE.Include(x => x.Profissional).AsNoTracking().ToListAsync();
             return pacientes;
