@@ -2,9 +2,8 @@
 {
     public enum StatusEnum
     {
-        Nenhum,
-        Ativo,
-        Finalizado,
-        Inativo
+        Prioridade,
+        Normal
+        
     }
 }

@@ -6,7 +6,7 @@
 
 <h5>@ViewData["Title"]</h5>
 <hr />
-<table class="table">
+<table class="table" id="table-profissionaisPacientes">
     <thead>
         <tr>
             <th>
@@ -54,7 +54,14 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Observacao)
                 </td>
+                <td>
+                    
+                    <a asp-controller="Paciente" asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+
+                    <a asp-controller="Paciente" asp-action="Delete" asp-route-id="@item.Id">Deletar</a>
+                </td>
             </tr>
+
         }
 
       

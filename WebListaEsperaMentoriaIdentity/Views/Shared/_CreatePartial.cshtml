@@ -1,4 +1,5 @@
-﻿@using WebListaEsperaMentoriaIdentity.ViewModels
+﻿@using WebListaEsperaMentoriaIdentity.Enums
+@using WebListaEsperaMentoriaIdentity.ViewModels
 @model ListaEsperaViewModel
 
 
@@ -22,6 +23,7 @@
     <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCreate" aria-controls="offcanvasExample">
         Cadastrar novo paciente
     </button>
+    <br />
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasCreate" aria-labelledby="offcanvasExampleLabel">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="offcanvasExampleLabel"></h5>
@@ -54,6 +56,17 @@
                                 <label asp-for="Observacao" class="control-label"></label>
                                 <input asp-for="Observacao" class="form-control" />
                                 <span asp-validation-for="Observacao" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Status" class="control-label"></label>
+                                <select asp-for="Status" class="form-control">
+                                    <option value="">Selecione</option>
+                                    <option value="@StatusEnum.Prioridade">Prioridade</option>
+                                    <option value="@StatusEnum.Normal">Normal</option>
+                                    @* <option value="@StatusEnum.Finalizado">Finalizado</option>
+                                    <option value="@StatusEnum.Inativo">Inativo</option> *@
+                                </select>
+                                <span asp-validation-for="Status" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="Profissional" class="control-label"></label>

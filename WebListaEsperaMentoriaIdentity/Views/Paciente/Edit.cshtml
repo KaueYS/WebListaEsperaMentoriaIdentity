@@ -54,10 +54,10 @@
                 <label asp-for="Status" class="control-label"></label>
                 <select asp-for="Status" class="form-control">
                     <option value="">Selecione</option>
-                    <option value="@StatusEnum.Nenhum">Nenhum</option>
-                    <option value="@StatusEnum.Ativo">Ativo</option>
-                    <option value="@StatusEnum.Finalizado">Finalizado</option>
-                    <option value="@StatusEnum.Inativo">Inativo</option>
+                    <option value="@StatusEnum.Prioridade">Prioridade</option>
+                    <option value="@StatusEnum.Normal">Normal</option>
+                    @* <option value="@StatusEnum.Finalizado">Finalizado</option>
+                    <option value="@StatusEnum.Inativo">Inativo</option> *@
                 </select>
                 <span asp-validation-for="Status" class="text-danger"></span>
             </div>

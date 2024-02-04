@@ -31,7 +31,7 @@ namespace WebListaEsperaMentoriaIdentity.Repositories
         public async Task <List<PacienteModel>> Buscar(PacienteBuscarDTQ pacienteBuscarQuery)
         {
             PacienteBuscarDTQ pacienteBuscarDTQ = new PacienteBuscarDTQ();
-            pacienteBuscarDTQ.Status = Enums.StatusEnum.Ativo;
+            pacienteBuscarDTQ.Status = Enums.StatusEnum.Normal;
 
             var pacientes = await _context.PACIENTE.Include(x => x.Profissional).AsNoTracking().ToListAsync();
             return pacientes;
@@ -47,7 +47,7 @@ namespace WebListaEsperaMentoriaIdentity.Repositories
         {
             //paciente.UsuarioId = BuscarUsuarioLogado();
             paciente.DataCadastro = DateTime.Now;
-            paciente.Status = Enums.StatusEnum.Ativo;
+            //paciente.Status = Enums.StatusEnum.Normal;
             _context.PACIENTE.Add(paciente);
             await _context.SaveChangesAsync();
             return paciente;
