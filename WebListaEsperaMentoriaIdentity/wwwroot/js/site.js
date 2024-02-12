@@ -6,12 +6,18 @@
 $(document).ready(function () {
     getDatatable('#table-pacientes');
     getDatatable('#table-profissionaisPacientes');
-
     
+   
 })
+
+
 
 function getDatatable(id) {
     $(id).DataTable({
+        "columnDefs": [
+            { "type": "date", "targets": 3 }
+        ],
+        "order": [[3, 'asc'], [4, 'desc']],
         "ordering": true,
         "paging": true,
         "searching": true,

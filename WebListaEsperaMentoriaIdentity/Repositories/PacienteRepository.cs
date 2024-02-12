@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using WebListaEsperaMentoriaIdentity.Data;
@@ -28,10 +29,19 @@ namespace WebListaEsperaMentoriaIdentity.Repositories
             return profissional;
         }
 
-        public async Task <List<PacienteModel>> Buscar(PacienteBuscarDTQ pacienteBuscarQuery)
+        //public async Task<List<PacienteModel>> Buscar(PacienteBuscarDTQ pacienteBuscarQuery)
+        //{
+        //    PacienteBuscarDTQ pacienteBuscarDTQ = new PacienteBuscarDTQ();
+        //    pacienteBuscarDTQ.Status = Enums.StatusEnum.Normal;
+
+        //    var pacientes = await _context.PACIENTE.Include(x => x.Profissional).AsNoTracking().OrderBy(x => x.DataCadastro).ToListAsync();
+        //    return pacientes;
+        //}
+
+        public async Task<List<PacienteModel>> Buscar()
         {
-            PacienteBuscarDTQ pacienteBuscarDTQ = new PacienteBuscarDTQ();
-            pacienteBuscarDTQ.Status = Enums.StatusEnum.Normal;
+            //PacienteBuscarDTQ pacienteBuscarDTQ = new PacienteBuscarDTQ();
+            //pacienteBuscarDTQ.Status = Enums.StatusEnum.Normal;
 
             var pacientes = await _context.PACIENTE.Include(x => x.Profissional).AsNoTracking().ToListAsync();
             return pacientes;

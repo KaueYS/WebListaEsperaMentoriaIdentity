@@ -33,10 +33,13 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
                         (from pr in _context.PROFISSIONAL
                          join pa in _context.PACIENTE on pr.Id equals pa.ProfissionalId into patientGroup
                          from patient in patientGroup.DefaultIfEmpty()
-                         group patient by pr.Nome into grouped
+                         //group patient by pr.Nome into grouped
+                         group patient by new { pr.Nome, pr.Id } into grouped
+                         
                          select new ProfissionalPacienteListaEsperaDTO
                          {
-                             NomeProfissional = grouped.Key,
+                             ProfissionalId = grouped.Key.Id,
+                             NomeProfissional = grouped.Key.Nome,
                              QtdePacienteListaEspera = grouped.Count(pa => pa != null)
                          }).OrderBy(x => x.QtdePacienteListaEspera).ToList();
 
@@ -44,8 +47,10 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
                 pacienteViewModel.ProfissionaisPacienteListaEspera = result;
 
                 PacienteBuscarDTQ pacienteBuscarQuery = new PacienteBuscarDTQ();
-                List<PacienteModel> pacientes = await _pacienteService.Buscar(pacienteBuscarQuery);
+                List<PacienteModel> pacientes = await _pacienteService.Buscar();
 
+              
+                
                 if (pacientes == null || pacientes.Count == 0)
                 {
                     TempData["NaoHaPacientesCadastrados"] = "Nao ha pacientes cadastrados";
@@ -64,13 +69,13 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
 
        
 
-        public async Task<IActionResult> Todos()
-        {
-            PacienteBuscarDTQ pacienteBuscarQuery = new PacienteBuscarDTQ();
-            var buscarTodos =  await _pacienteService.Buscar(pacienteBuscarQuery);
+        //public async Task<IActionResult> Todos()
+        //{
+        //    PacienteBuscarDTQ pacienteBuscarQuery = new PacienteBuscarDTQ();
+        //    var buscarTodos =  await _pacienteService.Buscar(pacienteBuscarQuery);
 
-            return View(buscarTodos);
-        }
+        //    return View(buscarTodos);
+        //}
 
         public async Task<IActionResult> Create()
         {

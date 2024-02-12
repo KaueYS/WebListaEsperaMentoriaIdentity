@@ -42,15 +42,25 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Email)
                 </td>
-                <td>
+                <td class="telefone">
                     @Html.DisplayFor(modelItem => item.Telefone)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.DataCadastro)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status)
-                </td>
+                @if (item.Status == WebListaEsperaMentoriaIdentity.Enums.StatusEnum.Prioridade)
+                {
+                    <td class="text-danger">
+
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                }
                 <td>
                     @Html.DisplayFor(modelItem => item.Observacao)
                 </td>

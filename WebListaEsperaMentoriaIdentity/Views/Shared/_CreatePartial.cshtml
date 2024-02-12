@@ -100,12 +100,14 @@
                             {
                                 <tr>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.NomeProfissional)
+                                        <a asp-controller="Profissional" asp-action="ListaPacientesProfissional" asp-route-id="@item.ProfissionalId">@item.NomeProfissional</a>
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.QtdePacienteListaEspera)
                                     </td>
+
                                 </tr>
+
                             }
                         </tbody>
                     </table>
@@ -115,10 +117,13 @@
     </div>
 </div>
 
+
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
+       
     }
+
 }
 
 

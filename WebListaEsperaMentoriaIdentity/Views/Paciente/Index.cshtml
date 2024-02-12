@@ -61,6 +61,7 @@
         @foreach (var item in Model.Pacientes)
         {
             <tr>
+
                 <td>
                     @Html.DisplayFor(modelItem => item.Nome)
                 </td>
@@ -73,23 +74,34 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.DataCadastro)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status)
-                </td>
+                @if (item.Status == WebListaEsperaMentoriaIdentity.Enums.StatusEnum.Prioridade)
+                {
+                    <td class="text-danger">
+
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                }
                 <td>
                     @Html.DisplayFor(modelItem => item.Observacao)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Profissional.Nome)
                 </td>
+                
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Editar</a>  |
                     <a asp-action="DeleteConfirmed" asp-route-id="@item.Id">Deletar</a>
                 </td>
             </tr>
         }
-        
-       
+
+
     </tbody>
 </table>
 @section Scripts {

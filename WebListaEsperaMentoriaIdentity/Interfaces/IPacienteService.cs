@@ -11,7 +11,8 @@ namespace WebListaEsperaMentoriaIdentity.Interfaces
     public interface IPacienteService
     {
 
-        Task <List<PacienteModel>> Buscar(PacienteBuscarDTQ pacienteBuscarQuery);
+        //Task <List<PacienteModel>> Buscar(PacienteBuscarDTQ pacienteBuscarQuery);
+        Task <List<PacienteModel>> Buscar();
         Task<List<ProfissionalModel>> BuscarProfissional();
         
         Task<ListaEsperaViewModel> BuscarPorId(PacienteBuscarDTQ pacienteBuscarQuery);

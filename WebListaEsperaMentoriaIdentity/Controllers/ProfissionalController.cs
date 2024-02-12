@@ -25,10 +25,10 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
 
         public IActionResult ListaPacientesProfissional(Guid id)
         {
-            var pacientesFiltradosPeloProfissional = _context.PACIENTE.Include(p => p.Profissional).Where(x => x.ProfissionalId == id).OrderBy(x => x.DataCadastro).OrderBy(x => x.Status);
+            var pacientesFiltradosPeloProfissional = _context.PACIENTE.Include(p => p.Profissional).Where(x => x.ProfissionalId == id);
             ListaPacientesCadaProfissionalViewModel listaPacientesCadaProfissionalViewModel = new();
 
-            listaPacientesCadaProfissionalViewModel.ListaPacientesCadaProfissional = pacientesFiltradosPeloProfissional.ToList();
+            listaPacientesCadaProfissionalViewModel.ListaPacientesCadaProfissional = pacientesFiltradosPeloProfissional.OrderBy(x => x.DataCadastro).ToList();
             return View(listaPacientesCadaProfissionalViewModel);
         }
 
@@ -37,8 +37,8 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
         // GET: Profissional
         public async Task<IActionResult> Index()
         {
-            var appDbContext = _context.PROFISSIONAL.Include(p => p.Especialidade);
-            return View(await appDbContext.OrderBy(x => x.Nome).ToListAsync());
+            var appDbContext = _context.PROFISSIONAL.Include(p => p.Especialidade).OrderBy(x => x.Nome);
+            return View(await appDbContext.ToListAsync());
         }
 
         // GET: Profissional/Details/5
