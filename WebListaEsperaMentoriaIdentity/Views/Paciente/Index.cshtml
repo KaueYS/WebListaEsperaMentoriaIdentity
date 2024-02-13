@@ -73,7 +73,8 @@
                     @{
                         string profissional = item.Profissional.Nome;
                         string nomePaciente = item.Nome;
-                        string mensagem = $"?text=Ola+{nomePaciente},+surgiu+um+horario+para+antecipar+sua+consulta+com+o+medico+{profissional}.+Caso+tenha+interesse,+responda+esse+WhatsApp";
+                        DateTime dataAntecipada = item.DataCadastro;
+                        string mensagem = $"?text=Ola+{nomePaciente},+surgiu+um+horario+para+antecipar+sua+consulta+com+o+medico+{profissional}+na+data+{dataAntecipada}.+Caso+tenha+interesse,+responda+esse+WhatsApp+confirmando+esse+horario!+{dataAntecipada}";
                         string urlWhatsApp = $"https://wa.me/55{item.Telefone}{mensagem}";
                         <a target="_blank" href="@urlWhatsApp">@item.TelefoneFormatado</a>
                     }
