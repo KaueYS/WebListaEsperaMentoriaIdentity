@@ -59,7 +59,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Pacientes)
+        @foreach (ListaEsperaPacienteViewModel item in Model.Pacientes)
         {
             <tr>
                 <td>
@@ -103,6 +103,13 @@
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Editar</a>  |
                     <a asp-action="DeleteConfirmed" asp-route-id="@item.Id">Deletar</a>
+                    @{
+                        string idCanvas = $"#offcanvasListaEsperaAgendamentoPartial{item.Id}";
+                    }
+                    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="@idCanvas" aria-controls="offcanvasExample">
+                        ir
+                    </button>
+                    @Html.Partial("_ListaEsperaAgendamentoPartial", item)
                 </td>
             </tr>
         }

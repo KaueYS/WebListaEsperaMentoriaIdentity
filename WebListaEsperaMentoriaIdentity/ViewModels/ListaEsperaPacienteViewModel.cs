@@ -22,8 +22,9 @@ namespace WebListaEsperaMentoriaIdentity.ViewModels
 
         public ProfissionalModel? Profissional { get; set; }
 
+        public DateTime DataAgendamento { get; set; } = DateTime.Now;
 
-       
+
 
     }
 }

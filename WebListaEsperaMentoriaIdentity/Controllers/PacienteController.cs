@@ -83,7 +83,6 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
             foreach (Match item in regular.Matches(paciente.Telefone))
             {
                 telefoneSemMascara += item.Value;
-
             }
             paciente.Telefone = telefoneSemMascara;
 

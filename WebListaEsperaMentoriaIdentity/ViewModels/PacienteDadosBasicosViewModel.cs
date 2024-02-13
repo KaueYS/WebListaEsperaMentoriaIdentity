@@ -13,6 +13,7 @@ namespace WebListaEsperaMentoriaIdentity.ViewModels
 
         [DisplayName("Data do cadastro")]
         public DateTime DataCadastro { get; set; }
+        
         public string? Observacao { get; set; }
 
         public StatusEnum Status { get; set; }

@@ -1,0 +1,61 @@
+﻿@using WebListaEsperaMentoriaIdentity.Enums
+@using WebListaEsperaMentoriaIdentity.ViewModels
+@model ListaEsperaPacienteViewModel
+
+
+@{
+    if (TempData["ErroCadastro"] != null)
+    {
+        <div class="alert alert-primary" role="alert">
+            @TempData["ErroCadastro"]
+        </div>
+    }
+    else if (TempData["MensagemErro"] != null)
+    {
+        <div class="alert alert-primary" role="alert">
+            @TempData["MensagemErro"]
+        </div>
+    }
+}
+
+<div class="container">
+
+    @{
+        string idCanvas = $"offcanvasListaEsperaAgendamentoPartial{Model.Id}";
+    }
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="@idCanvas" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasExampleLabel"></h5>
+
+        </div>
+        <div class="offcanvas-body">
+            <div>
+                <h5>DATA HORA AGENDAMENTO</h5>
+                <hr />
+                <div class="row">
+                    <div class="col-md-12">
+                        <form asp-controller="Paciente" asp-action="Create">
+                            <div class="form-group">
+                                <label asp-for="DataAgendamento" class="control-label"></label>
+                                <input data-agendamento="@Model.Id" asp-for="DataAgendamento" class="form-control" />
+                                <span asp-validation-for="DataAgendamento" class="text-danger"></span>
+                            </div>
+                            <div class="form-group ">
+                                <a class="btn btn-primary" onclick="enviarWhatsApp('@Model.Profissional.Nome', '@Model.Nome', '@Model.Telefone', '@Model.Id')">Enviar WhatsApp</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+
+    }
+
+}

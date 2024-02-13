@@ -10,7 +10,22 @@ $(document).ready(function () {
    
 })
 
+function enviarWhatsApp(nomeProfissional, nomePaciente, telefone, id) {
+    var agendamento = document.querySelector('[data-agendamento="'+id+'"]').value;
+    //console.log(nomeProfissional);
+    //console.log(nomePaciente);
+    //console.log(telefone);
+    //console.log(agendamento);
+    var dataAgendamento = new Date(agendamento);
+    agendamento = dataAgendamento.toLocaleDateString('pt-BR') + " " + dataAgendamento.toLocaleTimeString('pt-BR');
 
+
+
+    var mensagem = "?text=Ola+" + nomePaciente + ",+surgiu+um+horario+para+antecipar+sua+consulta+com+o+medico+" + nomeProfissional +"+na+data+"+agendamento+".+Caso+tenha+interesse,+responda+esse+WhatsApp+confirmando+esse+horario!";
+    var urlWhatsApp = "https://wa.me/55" + telefone + mensagem;
+
+    window.open(urlWhatsApp, "_blank");
+}
 
 function getDatatable(id) {
     $(id).DataTable({
