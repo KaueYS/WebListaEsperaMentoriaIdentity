@@ -32,6 +32,7 @@ namespace WebListaEsperaMentoriaIdentity.Services
         //}
         public async Task<List<PacienteModel>> Buscar()
         {
+
             var pacientes = await _pacienteRepositorio.Buscar();
             return pacientes;
         }

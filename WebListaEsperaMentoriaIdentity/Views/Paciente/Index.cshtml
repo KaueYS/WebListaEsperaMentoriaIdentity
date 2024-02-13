@@ -53,23 +53,30 @@
             <th>
                 @Html.DisplayNameFor(model => model.Profissional)
             </th>
+            <th>
 
-            <th></th>
+            </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model.Pacientes)
         {
             <tr>
-
                 <td>
                     @Html.DisplayFor(modelItem => item.Nome)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Email)
                 </td>
+
                 <td>
-                    @Html.DisplayFor(modelItem => item.Telefone)
+                    @{
+                        string profissional = item.Profissional.Nome;
+                        string nomePaciente = item.Nome;
+                        string mensagem = $"?text=Ola+{nomePaciente},+surgiu+um+horario+para+antecipar+sua+consulta+com+o+medico+{profissional}.+Caso+tenha+interesse,+responda+esse+WhatsApp";
+                        string urlWhatsApp = $"https://wa.me/55{item.Telefone}{mensagem}";
+                        <a target="_blank" href="@urlWhatsApp">@item.TelefoneFormatado</a>
+                    }
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.DataCadastro)
@@ -77,7 +84,6 @@
                 @if (item.Status == WebListaEsperaMentoriaIdentity.Enums.StatusEnum.Prioridade)
                 {
                     <td class="text-danger">
-
                         @Html.DisplayFor(modelItem => item.Status)
                     </td>
                 }
@@ -93,15 +99,12 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Profissional.Nome)
                 </td>
-                
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Editar</a>  |
                     <a asp-action="DeleteConfirmed" asp-route-id="@item.Id">Deletar</a>
                 </td>
             </tr>
         }
-
-
     </tbody>
 </table>
 @section Scripts {

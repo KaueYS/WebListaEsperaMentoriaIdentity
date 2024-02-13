@@ -6,7 +6,7 @@
 $(document).ready(function () {
     getDatatable('#table-pacientes');
     getDatatable('#table-profissionaisPacientes');
-    
+    $("#Telefone").mask("(00) 00000-0000");
    
 })
 

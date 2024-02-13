@@ -27,9 +27,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Paciente.Observacao)
             </th>
-           
+            <th>
 
-            <th></th>
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -65,15 +65,10 @@
                     @Html.DisplayFor(modelItem => item.Observacao)
                 </td>
                 <td>
-                    
                     <a asp-controller="Paciente" asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-
-                    <a asp-controller="Paciente" asp-action="Delete" asp-route-id="@item.Id">Deletar</a>
+                    <a asp-controller="Paciente" asp-action="DeleteConfirmed" asp-route-id="@item.Id">Deletar</a>
                 </td>
             </tr>
-
         }
-
-      
     </tbody>
 </table>

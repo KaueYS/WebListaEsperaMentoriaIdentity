@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using WebListaEsperaMentoriaIdentity.Data;
 using WebListaEsperaMentoriaIdentity.DTO;
@@ -48,14 +49,13 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
 
                 PacienteBuscarDTQ pacienteBuscarQuery = new PacienteBuscarDTQ();
                 List<PacienteModel> pacientes = await _pacienteService.Buscar();
-
-              
                 
+
                 if (pacientes == null || pacientes.Count == 0)
                 {
                     TempData["NaoHaPacientesCadastrados"] = "Nao ha pacientes cadastrados";
                 }
-                pacienteViewModel.Pacientes = pacientes;
+                pacienteViewModel.Pacientes = pacienteViewModel.ConverterPaciente(pacientes);
 
                 ViewData["ProfissionalId"] = new SelectList(_context.PROFISSIONAL, "Id", "Nome").OrderBy(x => x.Text);
                 return View(pacienteViewModel);
@@ -67,16 +67,6 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
             return View();
         }
 
-       
-
-        //public async Task<IActionResult> Todos()
-        //{
-        //    PacienteBuscarDTQ pacienteBuscarQuery = new PacienteBuscarDTQ();
-        //    var buscarTodos =  await _pacienteService.Buscar(pacienteBuscarQuery);
-
-        //    return View(buscarTodos);
-        //}
-
         public async Task<IActionResult> Create()
         {
             ViewData["ProfissionalId"] = new SelectList(_context.PROFISSIONAL, "Id", "Nome");
@@ -87,6 +77,16 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ListaEsperaViewModel paciente)
         {
+            Regex regular = new Regex(@"\d");
+            string telefoneSemMascara = string.Empty;
+            //paciente.Telefone = regular.Match(paciente.Telefone).Value;
+            foreach (Match item in regular.Matches(paciente.Telefone))
+            {
+                telefoneSemMascara += item.Value;
+
+            }
+            paciente.Telefone = telefoneSemMascara;
+
             PacienteModel model = paciente;
 
             ViewData["ProfissionalId"] = new SelectList(_context.PROFISSIONAL, "Id", "Id", paciente.ProfissionalId);
