@@ -30,9 +30,9 @@ function enviarWhatsApp(nomeProfissional, nomePaciente, telefone, id) {
 function getDatatable(id) {
     $(id).DataTable({
         "columnDefs": [
-            { "type": "date", "targets": 3 }
+            { "type": "date", "targets": 2 }
         ],
-        "order": [[3, 'asc'], [4, 'desc']],
+        "order": [[2, 'asc'], [3, 'desc']],
         "ordering": true,
         "paging": true,
         "searching": true,
