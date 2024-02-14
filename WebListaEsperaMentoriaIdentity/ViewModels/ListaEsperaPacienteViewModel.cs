@@ -26,7 +26,8 @@ namespace WebListaEsperaMentoriaIdentity.ViewModels
         [DisplayName("Data disponivel")]
         public DateTime DataAgendamento { get; set; } = DateTime.Now.Date.ToLocalTime();
 
-
+        public List<PacienteModel>? ListaPacientesCadaProfissional { get; set; }
+        public PacienteModel? Paciente { get; set; }
 
     }
 }

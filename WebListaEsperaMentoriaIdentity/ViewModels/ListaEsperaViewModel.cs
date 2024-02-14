@@ -1,21 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using WebListaEsperaMentoriaIdentity.DTO;
+using WebListaEsperaMentoriaIdentity.Enums;
 using WebListaEsperaMentoriaIdentity.Models;
 
 namespace WebListaEsperaMentoriaIdentity.ViewModels
 {
-    public class ListaEsperaViewModel : PacienteDadosBasicosViewModel
+    public class ListaEsperaViewModel
     {
+        //=============BASE=================================================================================
+        public Guid Id { get; set; }
+
+        public string Nome { get; set; } = string.Empty;
+
+        public string Email { get; set; } = string.Empty;
+
+        public string Telefone { get; set; } = string.Empty;
+        
+        [DisplayName("Data do cadastro")]
+        public DateTime DataCadastro { get; set; }
+
+        public string? Observacao { get; set; }
+
+        public StatusEnum Status { get; set; }
+
+        //==================================================================================================
+
         public ProfissionalModel? Profissional {  get; set; }
         public Guid? ProfissionalId { get; set; }
         public List<ListaEsperaPacienteViewModel>? Pacientes { get; set; }
         
         public Guid PacienteId { get; set; }
         public List<ProfissionalPacienteListaEsperaDTO>? ProfissionaisPacienteListaEspera { get; set; }
-
-       
-
+        
+        //==================================================================================================
 
         public static implicit operator PacienteModel(ListaEsperaViewModel paciente)
         {
@@ -47,7 +66,6 @@ namespace WebListaEsperaMentoriaIdentity.ViewModels
                 ProfissionalId = paciente.ProfissionalId,
                 Profissional= paciente.Profissional,
                 Status = paciente.Status,
-                
             };
         }
 
@@ -79,25 +97,9 @@ namespace WebListaEsperaMentoriaIdentity.ViewModels
                     Profissional = paciente.Profissional,
                     Status = paciente.Status,
                 });
-
             }
             return pacientesViewModel;
-
-
-            //return new List<ListaEsperaPacienteViewModel>
-            //{
-            //    Id = paciente.Id,
-            //    Nome = paciente.Nome,
-            //    Email = paciente.Email,
-            //    Telefone = paciente.Telefone,
-            //    DataCadastro = paciente.DataCadastro,
-            //    Observacao = paciente.Observacao,
-            //    Profissional = paciente.Profissional,
-            //    Status = paciente.Status,
-
-            //};
         }
-
     }
 }
 
