@@ -35,9 +35,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Nome)
             </th>
-            <th>
+            @* <th>
                 @Html.DisplayNameFor(model => model.Email)
-            </th>
+            </th> *@
             <th>
                 @Html.DisplayNameFor(model => model.Telefone)
             </th>
@@ -65,19 +65,20 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Nome)
                 </td>
-                <td>
+               @*  <td>
                     @Html.DisplayFor(modelItem => item.Email)
-                </td>
+                </td> *@
 
                 <td>
-                    @{
+                    @Html.DisplayFor(modelItem => item.TelefoneFormatado)
+                    @* @{
                         string profissional = item.Profissional.Nome;
                         string nomePaciente = item.Nome;
                         DateTime dataAntecipada = item.DataCadastro;
                         string mensagem = $"?text=Ola+{nomePaciente},+surgiu+um+horario+para+antecipar+sua+consulta+com+o+medico+{profissional}+na+data+{dataAntecipada}.+Caso+tenha+interesse,+responda+esse+WhatsApp+confirmando+esse+horario!+{dataAntecipada}";
                         string urlWhatsApp = $"https://wa.me/55{item.Telefone}{mensagem}";
                         <a target="_blank" href="@urlWhatsApp">@item.TelefoneFormatado</a>
-                    }
+                    } *@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.DataCadastro)
@@ -102,13 +103,17 @@
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Editar</a>  |
-                    <a asp-action="DeleteConfirmed" asp-route-id="@item.Id">Deletar</a>
+                    <a asp-action="DeleteConfirmed" asp-route-id="@item.Id">Deletar</a> |
                     @{
                         string idCanvas = $"#offcanvasListaEsperaAgendamentoPartial{item.Id}";
                     }
-                    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="@idCanvas" aria-controls="offcanvasExample">
-                        ir
-                    </button>
+                    @* <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="@idCanvas" aria-controls="offcanvasExample">
+                        Enviar WhatsApp
+                    </button> *@
+                    <a data-bs-toggle="offcanvas" href="@idCanvas" role="button" aria-controls="offcanvasExample">
+                        WhatsApp
+                    </a>
+
                     @Html.Partial("_ListaEsperaAgendamentoPartial", item)
                 </td>
             </tr>

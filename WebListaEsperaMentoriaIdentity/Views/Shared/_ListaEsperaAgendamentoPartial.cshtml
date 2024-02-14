@@ -30,7 +30,7 @@
         </div>
         <div class="offcanvas-body">
             <div>
-                <h5>DATA HORA AGENDAMENTO</h5>
+                <h5>DATA E HORA DISPONIVEL PARA: @Model.Nome</h5>
                 <hr />
                 <div class="row">
                     <div class="col-md-12">
@@ -40,6 +40,7 @@
                                 <input data-agendamento="@Model.Id" asp-for="DataAgendamento" class="form-control" />
                                 <span asp-validation-for="DataAgendamento" class="text-danger"></span>
                             </div>
+                            <br />
                             <div class="form-group ">
                                 <a class="btn btn-primary" onclick="enviarWhatsApp('@Model.Profissional.Nome', '@Model.Nome', '@Model.Telefone', '@Model.Id')">Enviar WhatsApp</a>
                             </div>

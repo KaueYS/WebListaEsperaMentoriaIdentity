@@ -12,9 +12,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Paciente.Nome)
             </th>
-            <th>
+           @*  <th>
                 @Html.DisplayNameFor(model => model.Paciente.Email)
-            </th>
+            </th> *@
             <th>
                 @Html.DisplayNameFor(model => model.Paciente.Telefone)
             </th>
@@ -39,9 +39,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Nome)
                 </td>
-                <td>
+                @* <td>
                     @Html.DisplayFor(modelItem => item.Email)
-                </td>
+                </td> *@
                 <td class="telefone">
                     @Html.DisplayFor(modelItem => item.Telefone)
                 </td>

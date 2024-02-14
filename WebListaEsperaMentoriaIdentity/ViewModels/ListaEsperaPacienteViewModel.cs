@@ -20,9 +20,11 @@ namespace WebListaEsperaMentoriaIdentity.ViewModels
 
         public StatusEnum Status { get; set; }
 
+        
         public ProfissionalModel? Profissional { get; set; }
 
-        public DateTime DataAgendamento { get; set; } = DateTime.Now;
+        [DisplayName("Data disponivel")]
+        public DateTime DataAgendamento { get; set; } = DateTime.Now.Date.ToLocalTime();
 
 
 
