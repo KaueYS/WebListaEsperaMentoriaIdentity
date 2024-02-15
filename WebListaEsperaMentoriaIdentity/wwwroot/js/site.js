@@ -21,7 +21,7 @@ function enviarWhatsApp(nomeProfissional, nomePaciente, telefone, id) {
 
 
 
-    var mensagem = "?text=Ola+" + nomePaciente + ",+surgiu+um+horario+para+antecipar+sua+consulta+com+o+medico+" + nomeProfissional +"+na+data+"+agendamento+".+Caso+tenha+interesse,+responda+esse+WhatsApp+confirmando+esse+horario!";
+    var mensagem = "?text=Olá+" + nomePaciente + ",+surgiu+um+horário+para+antecipar+sua+consulta+com+o+médico+" + nomeProfissional +"+na+data+"+agendamento+".+Caso+tenha+interesse,+responda+esse+WhatsApp!";
     var urlWhatsApp = "https://wa.me/55" + telefone + mensagem;
 
     window.open(urlWhatsApp, "_blank");

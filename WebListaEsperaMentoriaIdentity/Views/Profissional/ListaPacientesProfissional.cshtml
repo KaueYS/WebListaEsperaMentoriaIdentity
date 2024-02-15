@@ -1,5 +1,5 @@
 ﻿@using WebListaEsperaMentoriaIdentity.ViewModels
-@model ListaEsperaPacienteViewModel
+@model ListaPacientesViewModel
 @{
     ViewData["Title"] = $"PACIENTES CADASTRADOS PARA O MEDICO";
 }
@@ -10,22 +10,22 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Paciente.Nome)
+                @Html.DisplayNameFor(model => model.Nome)
             </th>
            @*  <th>
                 @Html.DisplayNameFor(model => model.Paciente.Email)
             </th> *@
             <th>
-                @Html.DisplayNameFor(model => model.Paciente.Telefone)
+                @Html.DisplayNameFor(model => model.Telefone)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Paciente.DataCadastro)
+                @Html.DisplayNameFor(model => model.DataCadastro)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Paciente.Status)
+                @Html.DisplayNameFor(model => model.Status)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Paciente.Observacao)
+                @Html.DisplayNameFor(model => model.Observacao)
             </th>
             <th>
 
@@ -33,7 +33,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.ListaPacientesCadaProfissional)
+        @foreach (ListaPacientesViewModel item in Model.ListaPacientesCadaProfissional)
         {
             <tr>
                 <td>

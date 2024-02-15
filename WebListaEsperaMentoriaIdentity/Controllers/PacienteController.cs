@@ -44,7 +44,7 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
                              QtdePacienteListaEspera = grouped.Count(pa => pa != null)
                          }).OrderBy(x => x.QtdePacienteListaEspera).ToList();
 
-                ListaEsperaViewModel pacienteViewModel = new ListaEsperaViewModel();
+                ListaPacientesViewModel pacienteViewModel = new ListaPacientesViewModel();
                 pacienteViewModel.ProfissionaisPacienteListaEspera = result;
 
                 PacienteBuscarDTQ pacienteBuscarQuery = new PacienteBuscarDTQ();
@@ -75,7 +75,7 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(ListaEsperaViewModel paciente)
+        public async Task<IActionResult> Create(ListaPacientesViewModel paciente)
         {
             Regex regular = new Regex(@"\d");
             string telefoneSemMascara = string.Empty;
@@ -109,7 +109,7 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(ListaEsperaViewModel paciente)
+        public async Task<IActionResult> Edit(ListaPacientesViewModel paciente)
         {
             try
             {

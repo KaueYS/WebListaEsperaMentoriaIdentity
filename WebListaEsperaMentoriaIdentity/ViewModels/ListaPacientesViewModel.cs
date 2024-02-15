@@ -7,7 +7,7 @@ using WebListaEsperaMentoriaIdentity.Models;
 
 namespace WebListaEsperaMentoriaIdentity.ViewModels
 {
-    public class ListaEsperaViewModel
+    public class ListaPacientesViewModel
     {
         //=============BASE=================================================================================
         public Guid Id { get; set; }
@@ -17,9 +17,13 @@ namespace WebListaEsperaMentoriaIdentity.ViewModels
         public string Email { get; set; } = string.Empty;
 
         public string Telefone { get; set; } = string.Empty;
+        public string TelefoneFormatado { get; set; } = string.Empty;
         
         [DisplayName("Data do cadastro")]
         public DateTime DataCadastro { get; set; }
+
+        [DisplayName("Data disponivel")]
+        public DateTime DataAgendamento { get; set; } = DateTime.Now.Date.ToLocalTime();
 
         public string? Observacao { get; set; }
 
@@ -29,14 +33,19 @@ namespace WebListaEsperaMentoriaIdentity.ViewModels
 
         public ProfissionalModel? Profissional {  get; set; }
         public Guid? ProfissionalId { get; set; }
-        public List<ListaEsperaPacienteViewModel>? Pacientes { get; set; }
+        public List<ListaPacientesViewModel>? Pacientes { get; set; }
         
         public Guid PacienteId { get; set; }
         public List<ProfissionalPacienteListaEsperaDTO>? ProfissionaisPacienteListaEspera { get; set; }
-        
-        //==================================================================================================
 
-        public static implicit operator PacienteModel(ListaEsperaViewModel paciente)
+        //===================================================================================================
+
+        public List<PacienteModel>? ListaPacientesCadaProfissional { get; set; }
+        public PacienteModel? Paciente { get; set; }
+
+        //===================================================================================================
+
+        public static implicit operator PacienteModel(ListaPacientesViewModel paciente)
         {
             return new PacienteModel
             {
@@ -53,9 +62,9 @@ namespace WebListaEsperaMentoriaIdentity.ViewModels
             };
         }
 
-        public static implicit operator ListaEsperaViewModel(PacienteModel paciente)
+        public static implicit operator ListaPacientesViewModel(PacienteModel paciente)
         {
-            return new ListaEsperaViewModel
+            return new ListaPacientesViewModel
             {
                 Id = paciente.Id,
                 Nome = paciente.Nome,
@@ -69,9 +78,9 @@ namespace WebListaEsperaMentoriaIdentity.ViewModels
             };
         }
 
-        public List<ListaEsperaPacienteViewModel> ConverterPaciente(List<PacienteModel> pacientes)
+        public List<ListaPacientesViewModel> ConverterPaciente(List<PacienteModel> pacientes)
         {
-            List<ListaEsperaPacienteViewModel> pacientesViewModel = new List<ListaEsperaPacienteViewModel>();
+            List<ListaPacientesViewModel> pacientesViewModel = new List<ListaPacientesViewModel>();
 
             foreach (var paciente in pacientes)
             {
@@ -85,7 +94,7 @@ namespace WebListaEsperaMentoriaIdentity.ViewModels
                     telefoneFormatado = paciente.Telefone;
                 }
 
-                pacientesViewModel.Add(new ListaEsperaPacienteViewModel
+                pacientesViewModel.Add(new ListaPacientesViewModel
                 {
                     Id = paciente.Id,
                     Nome = paciente.Nome,

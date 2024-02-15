@@ -36,7 +36,7 @@ namespace WebListaEsperaMentoriaIdentity.Services
             var pacientes = await _pacienteRepositorio.Buscar();
             return pacientes;
         }
-        public async Task<ListaEsperaViewModel> BuscarPorId(PacienteBuscarDTQ pacienteBuscarQuery)
+        public async Task<ListaPacientesViewModel> BuscarPorId(PacienteBuscarDTQ pacienteBuscarQuery)
         {
             var paciente = await _pacienteRepositorio.BuscarPorId(pacienteBuscarQuery);
                         

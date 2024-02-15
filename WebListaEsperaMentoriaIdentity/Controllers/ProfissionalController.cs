@@ -26,7 +26,7 @@ namespace WebListaEsperaMentoriaIdentity.Controllers
         public IActionResult ListaPacientesProfissional(Guid id)
         {
             var pacientesFiltradosPeloProfissional = _context.PACIENTE.Include(p => p.Profissional).Where(x => x.ProfissionalId == id);
-            ListaEsperaPacienteViewModel listaPacientesCadaProfissionalViewModel = new();
+            ListaPacientesViewModel listaPacientesCadaProfissionalViewModel = new();
 
             listaPacientesCadaProfissionalViewModel.ListaPacientesCadaProfissional = pacientesFiltradosPeloProfissional.OrderBy(x => x.DataCadastro).ToList();
             return View(listaPacientesCadaProfissionalViewModel);
