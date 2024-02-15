@@ -22,28 +22,40 @@ namespace WebListaEsperaMentoriaIdentity.ViewModels
         [DisplayName("Data do cadastro")]
         public DateTime DataCadastro { get; set; }
 
-        [DisplayName("Data disponivel")]
-        public DateTime DataAgendamento { get; set; } = DateTime.Now.Date.ToLocalTime();
-
         public string? Observacao { get; set; }
 
         public StatusEnum Status { get; set; }
 
-        //==================================================================================================
+
+        //== VIEW MODEL PARA PARTIAL DIA DISPONIVEL===========================================================
+        
+        [DisplayName("Data disponivel")]
+        public DateTime DataAgendamento { get; set; } = DateTime.Now.Date.ToLocalTime();
+
+
+        //== BUSCAR PROFISSIONAIS ============================================================================
 
         public ProfissionalModel? Profissional {  get; set; }
         public Guid? ProfissionalId { get; set; }
+
+
+        //== VIEW MODEL CONVERTE PARA TELEFONE COM MASCARA
         public List<ListaPacientesViewModel>? Pacientes { get; set; }
         
-        public Guid PacienteId { get; set; }
+        
+
+        //== VIEWMODEL IMPLEMENTAR A PARTIAL CREATE =========================================================
         public List<ProfissionalPacienteListaEsperaDTO>? ProfissionaisPacienteListaEspera { get; set; }
 
-        //===================================================================================================
 
+
+        //== VIEWMODEL PARA SELECIONAR PACIENTES POR MEDICO =================================================
         public List<PacienteModel>? ListaPacientesCadaProfissional { get; set; }
         public PacienteModel? Paciente { get; set; }
 
-        //===================================================================================================
+
+
+        
 
         public static implicit operator PacienteModel(ListaPacientesViewModel paciente)
         {

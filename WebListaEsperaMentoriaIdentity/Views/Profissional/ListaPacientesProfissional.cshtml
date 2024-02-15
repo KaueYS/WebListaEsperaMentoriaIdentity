@@ -66,7 +66,18 @@
                 </td>
                 <td>
                     <a asp-controller="Paciente" asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                    <a asp-controller="Paciente" asp-action="DeleteConfirmed" asp-route-id="@item.Id">Deletar</a>
+                    <a asp-controller="Paciente" asp-action="DeleteConfirmed" asp-route-id="@item.Id">Deletar</a> |
+
+                    @{
+                        string idCanvas = $"#offcanvasListaEsperaAgendamentoPartial{item.Id}";
+                    }
+                    
+                    <a data-bs-toggle="offcanvas" href="@idCanvas" role="button" aria-controls="offcanvasExample">
+                        WhatsApp
+                    </a>
+
+                    @Html.Partial("_ListaEsperaAgendamentoPartial", item)
+
                 </td>
             </tr>
         }
