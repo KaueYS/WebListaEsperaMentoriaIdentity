@@ -9,9 +9,5 @@ namespace WebListaEsperaMentoriaIdentity.DTO
         public string? NomeProfissional { get; set; }
         public int QtdePacienteListaEspera { get; set; }
 
-        
-
-
-
     }
 }
