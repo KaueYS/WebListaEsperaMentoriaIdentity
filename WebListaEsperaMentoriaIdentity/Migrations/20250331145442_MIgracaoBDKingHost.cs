@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WebListaEsperaMentoriaIdentity.Migrations
 {
     /// <inheritdoc />
-    public partial class MigrDBKH : Migration
+    public partial class MIgracaoBDKingHost : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -226,8 +226,7 @@ namespace WebListaEsperaMentoriaIdentity.Migrations
                         name: "FK_PROFISSIONAL_ESPECIALIDADE_EspecialidadeId",
                         column: x => x.EspecialidadeId,
                         principalTable: "ESPECIALIDADE",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -255,8 +254,7 @@ namespace WebListaEsperaMentoriaIdentity.Migrations
                         name: "FK_PACIENTE_PROFISSIONAL_ProfissionalId",
                         column: x => x.ProfissionalId,
                         principalTable: "PROFISSIONAL",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
