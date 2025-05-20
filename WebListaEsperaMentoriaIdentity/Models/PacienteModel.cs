@@ -30,7 +30,8 @@ namespace WebListaEsperaMentoriaIdentity.Models
         public DateTime DataCadastro { get; set; } = DateTime.Now.ToLocalTime();
 
 
-        [DisplayName("Observação")]
+        //[DisplayName("Observação")]
+        [DisplayName("Cirurgia")]
         public string? Observacao { get; set; }
 
 
